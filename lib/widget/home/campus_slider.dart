@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-import 'package:sbku_app/widgets/card_categories.dart';
+import 'package:sbku_app/widget/home/card_categories.dart';
 
 class CampusSlider extends StatefulWidget {
   final List<String> imagePaths;

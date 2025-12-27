@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../data/dummy_students.dart';
-import 'add_student_screen.dart';
+import 'add_student.dart';
 import '../../model/student.dart';
 
 class StudentListScreen extends StatefulWidget {

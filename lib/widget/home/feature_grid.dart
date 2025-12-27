@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sbku_app/screen/attendance/attendace_list_view_screen.dart';
-import 'package:sbku_app/screen/student/student_list_screen.dart';
+import 'package:sbku_app/screen/attendance/attendance_list_catgories.dart';
+import 'package:sbku_app/screen/student/student_list.dart';
 
 class FeatureGrid extends StatelessWidget {
   const FeatureGrid({super.key});

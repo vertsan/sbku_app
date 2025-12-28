@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sbku_app/widget/attendance/card_widget.dart';
-import 'package:sbku_app/widget/attendance/header_widget.dart';
+import 'package:sbku_app/widget/header_widget.dart';
 
 class AttendanceListCategoryScreen extends StatelessWidget {
   const AttendanceListCategoryScreen({Key? key}) : super(key: key);
@@ -11,7 +11,7 @@ class AttendanceListCategoryScreen extends StatelessWidget {
       backgroundColor: Colors.grey[50],
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(kToolbarHeight),
-        child: HeaderWidget(),
+        child: HeaderWidget(title: 'Attendance Categories'),
       ),
       body: SafeArea(
         child: Padding(

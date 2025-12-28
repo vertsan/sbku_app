@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sbku_app/screen/attendance/attendance_list_view.dart';
 
 class AttendanceCardWidget extends StatelessWidget {
   const AttendanceCardWidget({super.key});
@@ -9,6 +10,7 @@ class AttendanceCardWidget extends StatelessWidget {
       {
         'icon': Icons.list_alt,
         'label': 'បញ្ចីអវត្តមាន',
+        'screen': const AttendanceListView(),
       },
       {
         'icon': Icons.subject,
@@ -21,7 +23,7 @@ class AttendanceCardWidget extends StatelessWidget {
       itemCount: features.length,
       itemBuilder: (context, index) {
         return Padding(
-          padding: const EdgeInsets.only(bottom: 24),
+          padding: const EdgeInsets.only(bottom: 50),
           child: TabStyleCard(
             contentLabel: features[index]['label'] as String,
             icon: features[index]['icon'] as IconData,
@@ -31,6 +33,12 @@ class AttendanceCardWidget extends StatelessWidget {
                   content: Text('បើក ${features[index]['label']}'),
                   backgroundColor: const Color(0xFFE74C3C),
                   duration: const Duration(seconds: 1),
+                ),
+              );
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => features[index]['screen'] as Widget,
                 ),
               );
             },
@@ -64,10 +72,10 @@ class TabStyleCard extends StatelessWidget {
           // Main container
           Container(
             width: double.infinity,
-            height: 100,
+            height: 60,
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(15),
+              borderRadius: BorderRadius.circular(10),
               border: Border.all(
                 color: const Color(0xFFE74C3C),
                 width: 2.5,
@@ -82,12 +90,10 @@ class TabStyleCard extends StatelessWidget {
             ),
             child: Padding(
               padding: const EdgeInsets.only(
-                  left: 20, right: 20, top: 25, bottom: 15),
+                  left: 20, right: 20, top: 10, bottom: 15),
               child: Row(
                 children: [
                   // Icon
-
-                  const SizedBox(width: 15),
 
                   // Content label
                   Expanded(
@@ -102,11 +108,6 @@ class TabStyleCard extends StatelessWidget {
                   ),
 
                   // Arrow icon
-                  const Icon(
-                    Icons.arrow_forward_ios,
-                    color: Color(0xFFE74C3C),
-                    size: 20,
-                  ),
                 ],
               ),
             ),
@@ -129,10 +130,10 @@ class TabStyleCard extends StatelessWidget {
                   end: Alignment.bottomRight,
                 ),
                 borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(12),
-                    topRight: Radius.circular(12),
-                    bottomLeft: Radius.circular(12),
-                    bottomRight: Radius.circular(12)),
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10),
+                    bottomLeft: Radius.circular(10),
+                    bottomRight: Radius.circular(10)),
                 boxShadow: [
                   BoxShadow(
                     color: const Color(0xFFE74C3C).withOpacity(0.4),

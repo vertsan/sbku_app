@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sbku_app/screen/attendance/attendance_list_catgories_screen.dart';
+import 'package:sbku_app/screen/attendance/attendance_list_catgories.dart';
+
 import 'package:sbku_app/screen/student/student_list_view_screen.dart';
 
 import 'package:sbku_app/widget/appbar_widget.dart';

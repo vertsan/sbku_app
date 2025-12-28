@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:sbku_app/screen/attendance/attendance_list_catgories.dart';
-import 'package:sbku_app/screen/student/student_list_view.dart';
+import 'package:sbku_app/screen/attendance/attendance_list_catgories_screen.dart';
+import 'package:sbku_app/screen/student/student_list_view_screen.dart';
 
-import 'package:sbku_app/widget/appbar.dart';
-import 'package:sbku_app/widget/campus_slider.dart';
-import 'package:sbku_app/widget/greeting_card.dart';
-import 'package:sbku_app/widget/feature_grid.dart';
+import 'package:sbku_app/widget/appbar_widget.dart';
+import 'package:sbku_app/widget/campus_slider_widget.dart';
+import 'package:sbku_app/widget/greeting_card_widget.dart';
+import 'package:sbku_app/widget/feature_grid_widget.dart';
 
 class HomePageScreen extends StatelessWidget {
   const HomePageScreen({super.key});

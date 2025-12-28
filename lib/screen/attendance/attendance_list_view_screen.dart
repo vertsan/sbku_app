@@ -1,6 +1,6 @@
 // widget/attendance/attendance_item.dart
 import 'package:flutter/material.dart';
-import 'package:sbku_app/widget/list_item.dart';
+import 'package:sbku_app/widget/list_item_widget.dart';
 import '../../model/attendance.dart';
 
 class AttendanceItemWidget extends StatelessWidget {

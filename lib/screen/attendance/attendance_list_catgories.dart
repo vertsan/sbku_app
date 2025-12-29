@@ -13,20 +13,6 @@ class AttendanceListCategoryScreen extends StatelessWidget {
       backgroundColor: Colors.grey[50],
       appBar: AppBarWidget.simple(
         title: 'បញ្ជីវត្តមាន',
-        actions: [
-          // IconButton(
-          //   onPressed: () {
-          //     // Share functionality
-          //   },
-          //   icon: const Icon(Icons.share, color: Colors.white),
-          // ),
-          // IconButton(
-          //   onPressed: () {
-          //     // Add functionality
-          //   },
-          //   icon: const Icon(Icons.add, color: Colors.white),
-          // ),
-        ],
       ),
       body: SafeArea(
         child: Padding(
@@ -35,20 +21,20 @@ class AttendanceListCategoryScreen extends StatelessWidget {
             items: [
               ListCardItem(
                 icon: Icons.check_circle_outline,
-                label: 'Present Students',
-                screen: AttendanceItemWidget(
-                  attendance: dummyAttendances[1],
+                label: 'បញ្ជីវត្តមានទូទៅ',
+                screen: ListView.builder(
+                  itemCount: dummyAttendances.length,
+                  itemBuilder: (context, index) {
+                    return AttendanceListViewScreen(
+                      attendance: dummyAttendances[index],
+                    );
+                  },
                 ),
               ),
               ListCardItem(
                 icon: Icons.cancel_outlined,
-                label: 'Absent Students',
+                label: 'សូមដំណើរការអវត្តមាន',
                 // screen: AbsentStudentsScreen(),
-              ),
-              ListCardItem(
-                icon: Icons.hourglass_bottom_outlined,
-                label: 'Late Students',
-                // screen: LateStudentsScreen(),
               ),
             ],
           ),

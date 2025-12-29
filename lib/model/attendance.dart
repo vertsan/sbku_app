@@ -8,6 +8,7 @@ class AttendanceModel {
   final String studentName; // Add this
   final String facultyId;
   final String majorId;
+  final String shiftId;
   final String classId;
   final String yearId;
   final DateTime date;
@@ -21,6 +22,7 @@ class AttendanceModel {
     required this.studentName,
     required this.facultyId,
     required this.majorId,
+    required this.shiftId,
     required this.classId,
     required this.yearId,
     required this.date,
@@ -71,6 +73,7 @@ class AttendanceModel {
       studentId: json['studentId'],
       studentName: json['studentName'],
       facultyId: json['facultyId'],
+      shiftId: json['shiftId'],
       majorId: json['majorId'],
       classId: json['classId'],
       yearId: json['yearId'],
@@ -102,6 +105,7 @@ class AttendanceModel {
       facultyId: facultyId ?? this.facultyId,
       majorId: majorId ?? this.majorId,
       classId: classId ?? this.classId,
+      shiftId: shiftId,
       yearId: yearId ?? this.yearId,
       date: date ?? this.date,
       startTime: startTime ?? this.startTime,

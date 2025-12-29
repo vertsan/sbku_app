@@ -1,9 +1,10 @@
 // widget/attendance/attendance_item.dart
 import 'package:flutter/material.dart';
+import 'package:sbku_app/widget/appbar_widget.dart';
 import 'package:sbku_app/widget/list_item_widget.dart';
 import '../../model/attendance.dart';
 
-class AttendanceItemWidget extends StatelessWidget {
+class AttendanceListViewScreen extends StatelessWidget {
   final AttendanceModel attendance;
   final VoidCallback? onEdit;
   final VoidCallback? onDelete;
@@ -12,7 +13,7 @@ class AttendanceItemWidget extends StatelessWidget {
   final Color? avatarTextColor;
   final Color? actionColor;
 
-  const AttendanceItemWidget({
+  const AttendanceListViewScreen({
     super.key,
     required this.attendance,
     this.onEdit,
@@ -47,29 +48,48 @@ class AttendanceItemWidget extends StatelessWidget {
       );
     }
 
-    return ListItemWidget<AttendanceModel>(
-      item: attendance,
-      title: attendance.studentName,
-      subtitle: '${attendance.formattedDate} • ${attendance.timeRange}',
-      avatarText: attendance.avatarLetter,
-      avatarBackgroundColor:
-          avatarBackgroundColor ?? attendance.statusColor.withOpacity(0.1),
-      avatarTextColor: avatarTextColor ?? attendance.statusColor,
-      onTap: onTap,
-      actions: actions,
-      trailing: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-        decoration: BoxDecoration(
-          color: attendance.statusColor.withOpacity(0.1),
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: attendance.statusColor),
-        ),
-        child: Text(
-          attendance.statusLabel,
-          style: TextStyle(
-            color: attendance.statusColor,
-            fontSize: 12,
-            fontWeight: FontWeight.bold,
+    return Scaffold(
+      appBar: AppBarWidget.simple(
+        title: 'បញ្ជីអវត្តមានទូទៅ',
+        actions: [
+          IconButton(
+            onPressed: () {
+              // Share functionality
+            },
+            icon: const Icon(Icons.share, color: Colors.white),
+          ),
+          IconButton(
+            onPressed: () {
+              // Add functionality
+            },
+            icon: const Icon(Icons.add, color: Colors.white),
+          ),
+        ],
+      ),
+      body: ListItemWidget<AttendanceModel>(
+        item: attendance,
+        title: attendance.studentName,
+        subtitle: '${attendance.formattedDate} • ${attendance.timeRange}',
+        avatarText: attendance.avatarLetter,
+        avatarBackgroundColor:
+            avatarBackgroundColor ?? attendance.statusColor.withOpacity(0.1),
+        avatarTextColor: avatarTextColor ?? attendance.statusColor,
+        onTap: onTap,
+        actions: actions,
+        trailing: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+          decoration: BoxDecoration(
+            color: attendance.statusColor.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: attendance.statusColor),
+          ),
+          child: Text(
+            attendance.statusLabel,
+            style: TextStyle(
+              color: attendance.statusColor,
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ),

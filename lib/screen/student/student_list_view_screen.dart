@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:sbku_app/screen/student/add_student.dart';
 import 'package:sbku_app/widget/appbar_widget.dart';
 import 'package:sbku_app/widget/filter_row_widget.dart';
 import 'package:sbku_app/widget/list_item_widget.dart';
 import '../../data/dummy_students.dart';
-import 'add_student_screen.dart';
+
 import '../../model/student.dart';
 
 class StudentListScreen extends StatefulWidget {

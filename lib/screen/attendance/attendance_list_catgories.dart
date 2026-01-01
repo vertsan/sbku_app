@@ -25,9 +25,7 @@ class AttendanceListCategoryScreen extends StatelessWidget {
                 screen: ListView.builder(
                   itemCount: dummyAttendances.length,
                   itemBuilder: (context, index) {
-                    return AttendanceListViewScreen(
-                      attendance: dummyAttendances[index],
-                    );
+                    return AttendanceListViewScreen();
                   },
                 ),
               ),

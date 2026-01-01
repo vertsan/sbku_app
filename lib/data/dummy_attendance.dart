@@ -1,5 +1,4 @@
-// data/dummy_attendance.dart
-import '../model/attendance.dart';
+import 'package:sbku_app/model/attendance.dart';
 
 List<AttendanceModel> dummyAttendances = [
   AttendanceModel(
@@ -11,7 +10,7 @@ List<AttendanceModel> dummyAttendances = [
     shiftId: '1',
     classId: '1',
     yearId: '1',
-    date: DateTime.now().subtract(Duration(days: 1)),
+    date: DateTime.now().subtract(const Duration(days: 1)),
     startTime: '08:00',
     endTime: '10:00',
     isPresent: true,
@@ -25,7 +24,7 @@ List<AttendanceModel> dummyAttendances = [
     shiftId: '1',
     classId: '1',
     yearId: '1',
-    date: DateTime.now().subtract(Duration(days: 1)),
+    date: DateTime.now().subtract(const Duration(days: 1)),
     startTime: '08:00',
     endTime: '10:00',
     isPresent: false,
@@ -43,5 +42,33 @@ List<AttendanceModel> dummyAttendances = [
     startTime: '10:00',
     endTime: '12:00',
     isPresent: true,
+  ),
+  AttendanceModel(
+    id: '4',
+    studentId: '4',
+    studentName: 'ពេជ្រ រតនា',
+    facultyId: '1',
+    majorId: '3',
+    classId: '3',
+    shiftId: '2',
+    yearId: '1',
+    date: DateTime.now(),
+    startTime: '14:00',
+    endTime: '16:00',
+    isPresent: true,
+  ),
+  AttendanceModel(
+    id: '5',
+    studentId: '5',
+    studentName: 'សុវណ្ណ ដារា',
+    facultyId: '2',
+    majorId: '2',
+    classId: '2',
+    shiftId: '1',
+    yearId: '2',
+    date: DateTime.now(),
+    startTime: '10:00',
+    endTime: '12:00',
+    isPresent: false,
   ),
 ];

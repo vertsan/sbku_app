@@ -1,7 +1,7 @@
 import 'package:sbku_app/data/dummy_attendance.dart';
 import 'package:sbku_app/model/attendance_model.dart';
 import 'package:flutter/material.dart';
-import 'package:sbku_app/screen/attendance/action/add_edit_attendance_screen.dart';
+
 import 'package:sbku_app/widget/appbar_widget.dart';
 
 class AttendanceListViewScreen extends StatefulWidget {

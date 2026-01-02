@@ -1,6 +1,7 @@
 import 'package:sbku_app/data/dummy_attendance.dart';
 import 'package:sbku_app/model/attendance_model.dart';
 import 'package:flutter/material.dart';
+import 'package:sbku_app/screen/attendance/action/add_edit_attendance_screen.dart';
 import 'package:sbku_app/widget/appbar_widget.dart';
 
 class AttendanceListViewScreen extends StatefulWidget {
@@ -89,16 +90,6 @@ class _AttendanceListViewScreenState extends State<AttendanceListViewScreen> {
       SnackBar(
         content: Text('កែសម្រួល ${attendance.studentName}'),
         duration: const Duration(seconds: 1),
-      ),
-    );
-  }
-
-  void _navigateToAdd() {
-    // Navigate to add screen
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('បន្ថែមវត្តមានថ្មី'),
-        duration: Duration(seconds: 1),
       ),
     );
   }

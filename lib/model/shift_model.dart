@@ -1,6 +1,13 @@
 class ShiftModel {
-  final String id;
-  final String name;
+  final String shiftId;
+  final String shiftName;
+  final String startTime;
+  final String endTime;
 
-  ShiftModel({required this.id, required this.name});
+  ShiftModel({
+    required this.shiftId,
+    required this.shiftName,
+    required this.startTime,
+    required this.endTime,
+  });
 }

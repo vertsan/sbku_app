@@ -1,6 +1,6 @@
 class YearModel {
-  final String id;
-  final String name;
+  final String yearId;
+  final String yearName;
 
-  YearModel({required this.id, required this.name});
+  YearModel({required this.yearId, required this.yearName});
 }

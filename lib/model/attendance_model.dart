@@ -1,48 +1,68 @@
 import 'package:flutter/material.dart';
+import 'package:sbku_app/data/dummy_class.dart';
+import 'package:sbku_app/data/dummy_major.dart';
+import 'package:sbku_app/data/dummy_shirt.dart';
+import 'package:sbku_app/domain/entities/attendance_entity.dart';
+import 'package:sbku_app/data/dummy_faculty.dart';
+import 'package:sbku_app/data/dummy_year.dart';
 
-// Attendance Model
 class AttendanceModel {
-  final String id;
-  final String studentId;
-  final String studentName;
-  final String facultyId;
+  final AttendanceEntity entity;
+
+  // UI-resolved values
   final String facultyName;
-  final String majorId;
   final String majorName;
-  final String shiftId;
   final String shiftName;
-  final String classId;
   final String className;
-  final String yearId;
-  final DateTime date;
+  final String yearName;
   final String startTime;
   final String endTime;
-  final bool isPresent;
 
   AttendanceModel({
-    required this.id,
-    required this.studentId,
-    required this.studentName,
-    required this.facultyId,
+    required this.entity,
     required this.facultyName,
-    required this.majorId,
     required this.majorName,
-    required this.shiftId,
     required this.shiftName,
-    required this.classId,
     required this.className,
-    required this.yearId,
-    required this.date,
+    required this.yearName,
     required this.startTime,
     required this.endTime,
-    required this.isPresent,
   });
+
+  /// ✅ Factory: Entity → UI Model
+  factory AttendanceModel.fromEntity(AttendanceEntity entity) {
+    final faculty =
+        dummyFaculties.firstWhere((f) => f.facultyId == entity.facultyId);
+    final major = dummyMajors.firstWhere((m) => m.majorId == entity.majorId);
+    final shift = dummyShifts.firstWhere((s) => s.shiftId == entity.shiftId);
+    final classRoom =
+        dummyClasses.firstWhere((c) => c.classId == entity.classId);
+    final year = dummyYears.firstWhere((y) => y.yearId == entity.yearId);
+
+    return AttendanceModel(
+      entity: entity,
+      facultyName: faculty.facultyName,
+      majorName: major.majorName,
+      shiftName: shift.shiftName,
+      className: classRoom.className,
+      yearName: year.yearName,
+      startTime: shift.startTime,
+      endTime: shift.endTime,
+    );
+  }
+
+  // 🔹 UI Helpers
+  String get studentName => entity.studentName;
 
   String get avatarLetter =>
       studentName.isNotEmpty ? studentName[0].toUpperCase() : '?';
 
-  String get formattedDate => '${date.day}/${date.month}/${date.year}';
+  String get formattedDate =>
+      '${entity.date.day}/${entity.date.month}/${entity.date.year}';
+
   String get timeRange => '$startTime - $endTime';
-  String get statusLabel => isPresent ? 'មានវត្តមាន' : 'អវត្តមាន';
-  Color get statusColor => isPresent ? Colors.green : Colors.red;
+
+  String get statusLabel => entity.isPresent ? 'មានវត្តមាន' : 'អវត្តមាន';
+
+  Color get statusColor => entity.isPresent ? Colors.green : Colors.red;
 }

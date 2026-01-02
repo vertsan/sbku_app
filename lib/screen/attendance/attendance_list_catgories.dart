@@ -22,12 +22,7 @@ class AttendanceListCategoryScreen extends StatelessWidget {
               ListCardItem(
                 icon: Icons.check_circle_outline,
                 label: 'បញ្ជីវត្តមានទូទៅ',
-                screen: ListView.builder(
-                  itemCount: dummyAttendances.length,
-                  itemBuilder: (context, index) {
-                    return AttendanceListViewScreen();
-                  },
-                ),
+                screen: AttendanceListViewScreen(),
               ),
               ListCardItem(
                 icon: Icons.cancel_outlined,

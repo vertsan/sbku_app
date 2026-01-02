@@ -14,7 +14,7 @@ class _AttendanceListViewScreenState extends State<AttendanceListViewScreen> {
   String? _selectedFaculty;
   String? _selectedShift;
   String? _selectedGeneration;
-  List<AttendanceModel> _attendances = List.from(dummyAttendances);
+  final List<AttendanceModel> _attendances = List.from(dummyAttendances);
 
   List<AttendanceModel> get filteredAttendance {
     var result = _attendances;
@@ -137,7 +137,7 @@ class _AttendanceListViewScreenState extends State<AttendanceListViewScreen> {
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.grey.withOpacity(0.1),
+                  color: Colors.grey,
                   blurRadius: 4,
                   offset: const Offset(0, 2),
                 ),
@@ -277,7 +277,7 @@ class _AttendanceListViewScreenState extends State<AttendanceListViewScreen> {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: InkWell(
         onTap: () {
-          print('Tapped on ${attendance.studentName}');
+          // print('Tapped on ${attendance.studentName}');
         },
         borderRadius: BorderRadius.circular(12),
         child: Padding(
@@ -333,7 +333,7 @@ class _AttendanceListViewScreenState extends State<AttendanceListViewScreen> {
                         vertical: 4,
                       ),
                       decoration: BoxDecoration(
-                        color: attendance.statusColor.withOpacity(0.1),
+                        color: attendance.statusColor,
                         borderRadius: BorderRadius.circular(6),
                       ),
                       child: Text(

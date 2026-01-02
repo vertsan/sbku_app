@@ -5,7 +5,7 @@ import 'package:sbku_app/widget/filter_row_widget.dart';
 import 'package:sbku_app/widget/list_item_widget.dart';
 import '../../data/dummy_students.dart';
 
-import '../../model/student.dart';
+import '../../model/student_model.dart';
 
 class StudentListScreen extends StatefulWidget {
   const StudentListScreen({super.key});

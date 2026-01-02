@@ -6,9 +6,13 @@ class AttendanceModel {
   final String studentId;
   final String studentName;
   final String facultyId;
+  final String facultyName;
   final String majorId;
+  final String majorName;
   final String shiftId;
+  final String shiftName;
   final String classId;
+  final String className;
   final String yearId;
   final DateTime date;
   final String startTime;
@@ -20,9 +24,13 @@ class AttendanceModel {
     required this.studentId,
     required this.studentName,
     required this.facultyId,
+    required this.facultyName,
     required this.majorId,
+    required this.majorName,
     required this.shiftId,
+    required this.shiftName,
     required this.classId,
+    required this.className,
     required this.yearId,
     required this.date,
     required this.startTime,

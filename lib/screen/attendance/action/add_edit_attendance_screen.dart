@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sbku_app/data/dummy_attendance.dart';
-import 'package:sbku_app/model/attendance.dart';
+import 'package:sbku_app/model/attendance_model.dart';
 
 // Replace this with the correct import path if dummyAttendance is defined elsewhere
 
@@ -154,12 +154,17 @@ class _AddAttendanceScreenState extends State<AddAttendanceScreen> {
                       studentName: name,
                       // gender: _selectedGender,
                       facultyId: faculty,
+                      facultyName: faculty,
                       majorId: major,
+                      majorName: major,
                       shiftId: _selectedShift,
+                      shiftName: _selectedShift,
+                      classId: widget.attendance!.classId,
+                      className: widget.attendance!.className,
                       // generationId: generation,
                       yearId: year,
                       // email: email,
-                      classId: widget.attendance!.classId,
+
                       date: widget.attendance!.date,
                       startTime: widget.attendance!.startTime,
                       endTime: widget.attendance!.endTime,
@@ -174,10 +179,13 @@ class _AddAttendanceScreenState extends State<AddAttendanceScreen> {
                       id: 'SBKU${DateTime.now().millisecondsSinceEpoch}',
                       studentId: '',
                       studentName: name,
-                      // gender: _selectedGender,
                       facultyId: faculty,
+                      facultyName: faculty,
                       majorId: major,
+                      majorName: major,
                       shiftId: _selectedShift,
+                      shiftName: _selectedShift,
+                      className: '',
                       // generationId: generation,
                       yearId: year,
                       // email: email,

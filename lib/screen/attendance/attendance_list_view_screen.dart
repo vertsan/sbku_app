@@ -1,6 +1,7 @@
 import 'package:sbku_app/data/dummy_attendance.dart';
-import 'package:sbku_app/model/attendance.dart';
+import 'package:sbku_app/model/attendance_model.dart';
 import 'package:flutter/material.dart';
+import 'package:sbku_app/widget/appbar_widget.dart';
 
 class AttendanceListViewScreen extends StatefulWidget {
   const AttendanceListViewScreen({super.key});
@@ -105,26 +106,8 @@ class _AttendanceListViewScreenState extends State<AttendanceListViewScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.purple[600],
-        foregroundColor: Colors.white,
-        elevation: 2,
-        title: const Text('បញ្ជីវត្តមានសិស្ស'),
-        actions: [
-          IconButton(
-            onPressed: () {
-              // Share functionality
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('ចែករំលែក')),
-              );
-            },
-            icon: const Icon(Icons.share),
-          ),
-          IconButton(
-            onPressed: _navigateToAdd,
-            icon: const Icon(Icons.add),
-          ),
-        ],
+      appBar: AppBarWidget.simple(
+        title: 'បញ្ជីវត្តមានសិស្ស',
       ),
       body: Column(
         children: [

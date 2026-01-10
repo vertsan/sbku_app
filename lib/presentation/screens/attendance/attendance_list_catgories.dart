@@ -3,8 +3,7 @@ import 'package:sbku_app/presentation/screens/attendance/attendance_history_scre
 import 'package:sbku_app/presentation/screens/attendance/attendance_list_pending_screen.dart';
 import 'package:sbku_app/presentation/screens/attendance/student_check_in_attendance_screen.dart';
 import 'package:sbku_app/presentation/screens/attendance/teacher_active_sessions_list.dart';
-import 'package:sbku_app/presentation/screens/attendance/teacher_start_attendance_session_screen.dart'
-    hide TeacherStartAttendanceScreen;
+
 import 'package:sbku_app/presentation/widgets/appbar_widget.dart';
 import 'package:sbku_app/presentation/widgets/list_card_widget.dart';
 

@@ -1,4 +1,3 @@
-import 'package:sbku_app/data/dummy_attendance.dart';
 import 'package:sbku_app/data/dummy_attendance_session.dart';
 import 'package:sbku_app/model/attendance_session_model.dart';
 import 'package:flutter/material.dart';

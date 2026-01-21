@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:sbku_app/model/teacher_model.dart' as tm;
-import 'package:sbku_app/model/teacher_model.dart' show TeacherModel;
 import 'package:sbku_app/data/dummy_teacher.dart';
+import 'package:sbku_app/model/teacher_model.dart';
 import 'add_teacher_screen.dart';
 import 'edit_teacher_screen.dart';
-import 'teacher_detail.dart';
+import 'teacher_detail_screen.dart';
 
 class TeacherListScreen extends StatefulWidget {
   const TeacherListScreen({Key? key}) : super(key: key);
@@ -14,30 +13,30 @@ class TeacherListScreen extends StatefulWidget {
 }
 
 class _TeacherListScreenState extends State<TeacherListScreen> {
-  List<tm.TeacherModel> teachers = [];
-  String selectedGender = 'ជំនាញ';
-  String selectedDegree = 'ឆ្នាំទី';
-  String selectedDepartment = 'វេន';
+  List<TeacherModel> teachers = [];
+  String selectedSpecalization = 'ជំនាញ';
+  String selectedYear = 'ឆ្នាំទី';
+  String selectedSchedule = 'វេន';
 
   @override
   void initState() {
     super.initState();
-    teachers = DummyData.getDummyTeachers();
+    teachers = dummyTeachers;
   }
 
-  List<tm.TeacherModel> getFilteredTeachers() {
+  List<TeacherModel> getFilteredTeachers() {
     return teachers.where((teacher) {
-      bool matchGender =
-          selectedGender == 'ទាំងអស់' || teacher.gender == selectedGender;
+      bool matchGender = selectedSpecalization == 'ជំនាញ' ||
+          teacher.gender == selectedSpecalization;
       bool matchDegree =
-          selectedDegree == 'គ្រប់' || teacher.specalization == selectedDegree;
-      bool matchDepartment = selectedDepartment == 'បន្ទះ' ||
-          teacher.specalization == selectedDepartment;
+          selectedYear == 'ឆ្នាំទី' || teacher.year == selectedYear;
+      bool matchDepartment = selectedSchedule == 'វេន' ||
+          teacher.specialization == selectedSpecalization;
       return matchGender && matchDegree && matchDepartment;
     }).toList();
   }
 
-  void _deleteTeacher(tm.TeacherModel teacher) {
+  void _deleteTeacher(TeacherModel teacher) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -171,7 +170,7 @@ class _TeacherListScreenState extends State<TeacherListScreen> {
                   builder: (context) => const AddTeacherScreen(),
                 ),
               );
-              if (result != null && result is tm.TeacherModel) {
+              if (result != null && result is TeacherModel) {
                 setState(() {
                   teachers.add(result);
                 });
@@ -189,34 +188,34 @@ class _TeacherListScreenState extends State<TeacherListScreen> {
               children: [
                 Expanded(
                   child: _buildDropdown(
-                    value: selectedGender,
-                    items: ['ប្រុស', 'ស្រី'],
-                    onChanged: (value) =>
-                        setState(() => selectedGender = value!),
-                  ),
-                ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: _buildDropdown(
-                    value: selectedDegree,
-                    items: ['បណ្ឌិត', 'អនុបណ្ឌិត'],
-                    onChanged: (value) =>
-                        setState(() => selectedDegree = value!),
-                  ),
-                ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: _buildDropdown(
-                    value: selectedDepartment,
+                    value: selectedSpecalization,
                     items: [
-                      'Computer Science',
+                      'ជំនាញ',
+                      'Information Technology',
                       'Mathematics',
                       'Physics',
                       'Chemistry',
                       'Biology',
                     ],
                     onChanged: (value) =>
-                        setState(() => selectedDepartment = value!),
+                        setState(() => selectedSpecalization = value!),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: _buildDropdown(
+                    value: selectedYear,
+                    items: ['ឆ្នាំទី', 'year 1', 'year 2', 'year 3', 'year 4'],
+                    onChanged: (value) => setState(() => selectedYear = value!),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: _buildDropdown(
+                    value: selectedSchedule,
+                    items: ['វេន', 'Morning', 'Afternoon', 'Evening'],
+                    onChanged: (value) =>
+                        setState(() => selectedSchedule = value!),
                   ),
                 ),
               ],
@@ -282,7 +281,7 @@ class _TeacherListScreenState extends State<TeacherListScreen> {
                             ),
                           ),
                           subtitle: Text(
-                            '${teacher.specalization} • ${teacher.facultyid}',
+                            '${teacher.specialization} • ${teacher.year} • ${teacher.schedule}',
                             style: TextStyle(
                               color: Colors.grey.shade600,
                               fontSize: 14,
@@ -301,7 +300,7 @@ class _TeacherListScreenState extends State<TeacherListScreen> {
                                     ),
                                   );
                                   if (result != null &&
-                                      result is tm.TeacherModel) {
+                                      result is TeacherModel) {
                                     setState(() {
                                       final idx = teachers.indexWhere(
                                         (t) => t.id == teacher.id,

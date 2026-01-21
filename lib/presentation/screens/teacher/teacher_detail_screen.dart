@@ -1,10 +1,11 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:sbku_app/model/teacher_model.dart' as tm;
+import 'package:sbku_app/model/teacher_model.dart';
+
 
 class TeacherDetailScreen extends StatefulWidget {
-  final tm.TeacherModel teacher;
+  final TeacherModel teacher;
   const TeacherDetailScreen({super.key, required this.teacher});
 
   @override
@@ -35,9 +36,9 @@ class _TeacherDetailScreenState extends State<TeacherDetailScreen> {
   }
 
   void _snack(String msg) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(msg), backgroundColor: Colors.green),
-    );
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(msg), backgroundColor: Colors.green));
   }
 
   void _showPicker() {
@@ -79,12 +80,7 @@ class _TeacherDetailScreenState extends State<TeacherDetailScreen> {
         title: const Text('Show Teacher'),
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            _avatarSection(),
-            _infoCard(),
-          ],
-        ),
+        child: Column(children: [_avatarSection(), _infoCard()]),
       ),
     );
   }
@@ -110,7 +106,7 @@ class _TeacherDetailScreenState extends State<TeacherDetailScreen> {
             style: IconButton.styleFrom(
               backgroundColor: const Color(0xFFFF5722),
             ),
-          )
+          ),
         ],
       ),
     );
@@ -123,10 +119,10 @@ class _TeacherDetailScreenState extends State<TeacherDetailScreen> {
       decoration: _cardDeco(),
       child: Column(
         children: [
-          _info(Icons.person, 'អត្តលេខ', t.id),
+          _info(Icons.person, 'អត្តលេខ', t.teacherid),
           _info(Icons.badge, 'ឈ្មោះ', t.fullName),
-          _info(Icons.wc, 'ភេទ', t.gender == 'M' ? 'ប្រុស' : 'ស្រី'),
-          _info(Icons.school, 'ឯកទេស', t.specalization),
+          _info(Icons.wc, 'ភេទ', t.gender == 'Male' ? 'Male' : 'Female'),
+          _info(Icons.school, 'ឯកទេស', t.specialization),
           _info(Icons.phone, 'ទូរសព្ទ', t.phone),
           _info(Icons.email, 'អ៊ីមែល', t.email),
           _info(Icons.account_circle, 'User ID', t.userid),
@@ -142,9 +138,10 @@ class _TeacherDetailScreenState extends State<TeacherDetailScreen> {
         ListTile(
           leading: Icon(icon, color: const Color(0xFFFF5722)),
           title: Text(label, style: const TextStyle(fontSize: 12)),
-          subtitle: Text(value,
-              style:
-                  const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+          subtitle: Text(
+            value,
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+          ),
         ),
         if (!last) Divider(color: Colors.grey.shade200),
       ],
@@ -152,13 +149,10 @@ class _TeacherDetailScreenState extends State<TeacherDetailScreen> {
   }
 
   BoxDecoration _cardDeco() => BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 10,
-          ),
-        ],
-      );
+    color: Colors.white,
+    borderRadius: BorderRadius.circular(12),
+    boxShadow: [
+      BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10),
+    ],
+  );
 }

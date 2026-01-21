@@ -1,0 +1,86 @@
+// import '../model/teacher_model.dart';
+import 'package:sbku_app/model/teacher_model.dart' as tm;
+
+class DummyData {
+  static List<tm.TeacherModel> getDummyTeachers() {
+    return [
+      tm.TeacherModel(
+        id: "SBKU0100196",
+        teacherid: "SBKU0100196",
+        fullName: "HORNG SINA",
+        gender: "F",
+        specalization: "Information Technology",
+        phone: "0812345678",
+        email: "sinahorng@gmail.com",
+        userid: "sinahorng",
+        facultyid: "IT",
+      ),
+      tm.TeacherModel(
+        id: "SBKU0100196",
+        teacherid: "SBKU0100196",
+        fullName: "LY LINA",
+        gender: "F",
+        specalization: "Information Technology",
+        phone: "0812345678",
+        email: "yuna23@gmail.com",
+        userid: "yuna23",
+        facultyid: "IT",
+      ),
+      tm.TeacherModel(
+        id: "SBKU0100196",
+        teacherid: "SBKU0100196",
+        fullName: "HUN SOPHEA",
+        gender: "F",
+        specalization: "Information Technology",
+        phone: "0812345678",
+        email: "yuna23@gmail.com",
+        userid: "yuna23",
+        facultyid: "IT",
+      ),
+      tm.TeacherModel(
+        id: "SBKU0100196",
+        teacherid: "SBKU0100196",
+        fullName: "HUN SOPHEA",
+        gender: "F",
+        specalization: "Information Technology",
+        phone: "0812345678",
+        email: "yuna23@gmail.com",
+        userid: "yuna23",
+        facultyid: "IT",
+      ),
+      tm.TeacherModel(
+        id: "SBKU0100196",
+        teacherid: "SBKU0100196",
+        fullName: "CHEN CHINYI",
+        gender: "F",
+        specalization: "Information Technology",
+        phone: "0812345678",
+        email: "yuna23@gmail.com",
+        userid: "yuna23",
+        facultyid: "IT",
+      ),
+      tm.TeacherModel(
+        id: "SBKU0100196",
+        teacherid: "SBKU0100196",
+        fullName: "CHEN CHINYI",
+        gender: "F",
+        specalization: "Information Technology",
+        phone: "0812345678",
+        email: "yuna23@gmail.com",
+        userid: "yuna23",
+        facultyid: "IT",
+      ),
+      tm.TeacherModel(
+        id: "SBKU0100196",
+        teacherid: "SBKU0100196",
+        fullName: "Yun Yuna",
+        gender: "F",
+        specalization: "Information Technology",
+        phone: "0812345678",
+        email: "yuna23@gmail.com",
+        userid: "yuna23",
+        facultyid: "IT",
+      ),
+    ];
+  }
+}

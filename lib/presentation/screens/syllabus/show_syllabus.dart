@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:sbku_app/data/dummy_staff.dart';
 import 'package:sbku_app/presentation/widgets/appbar_widget.dart';
 
-class ShowStaffScreen extends StatelessWidget {
-  final String staffId;
-  const ShowStaffScreen({super.key, required this.staffId});
+class ShowSyllabusScreen extends StatelessWidget {
+  final String syllabusId;
+  const ShowSyllabusScreen({super.key, required this.syllabusId});
 
   @override
   Widget build(BuildContext context) {
-    final staff = dummyStaffs.firstWhere((s) => s.id == staffId);
+    final staff = dummyStaffs.firstWhere((s) => s.id == syllabusId);
 
     return Scaffold(
       appBar: AppBarWidget(

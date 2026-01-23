@@ -1,43 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:sbku_app/data/dummy_staff.dart'; // assuming this exports List<StaffModel> dummyStaffs
+import 'package:sbku_app/data/dummy_syllabus.dart';
 import 'package:sbku_app/model/staff_model.dart';
+import 'package:sbku_app/model/syllabus_model.dart';
 import 'package:sbku_app/presentation/screens/staff/add_staff.dart';
 import 'package:sbku_app/presentation/screens/staff/show_staff.dart';
+import 'package:sbku_app/presentation/screens/syllabus/add_syllabus.dart';
+import 'package:sbku_app/presentation/screens/syllabus/show_syllabus.dart';
 import 'package:sbku_app/presentation/widgets/appbar_widget.dart';
 import 'package:sbku_app/presentation/widgets/filter_row_widget.dart';
 import 'package:sbku_app/presentation/widgets/list_item_widget.dart';
 
-class StaffListViewScreen extends StatefulWidget {
-  const StaffListViewScreen({super.key});
+class SyllabusListViewScreen extends StatefulWidget {
+  const SyllabusListViewScreen({super.key});
 
   @override
-  State<StaffListViewScreen> createState() => _StaffListViewScreenState();
+  State<SyllabusListViewScreen> createState() => _StaffListViewScreenState();
 }
 
-class _StaffListViewScreenState extends State<StaffListViewScreen> {
-  // Filter values
-  String? _selectedSpecialization;
-  String? _selectedDepartment; // optional – add if your model has department
+class _StaffListViewScreenState extends State<SyllabusListViewScreen> {
+  // Filter value
+  String? _selectClass;
+  String? _selectedDepartment;
+  String? _selectedSubject;
 
-  // Get filtered list (you can add more filters later)
-  List<StaffModel> get filteredStaffs {
-    return dummyStaffs.where((staff) {
-      final matchSpec = _selectedSpecialization == null ||
-          staff.specalization == _selectedSpecialization;
-      final matchDept = _selectedDepartment == null ||
-          staff.department ==
-              _selectedDepartment; // ← uncomment if you add department
-
-      return matchSpec && matchDept;
-    }).toList();
-  }
-
-  void _showDeleteDialog(StaffModel staff) {
+  void _showDeleteDialog(SyllabusModel syllabus) {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('លុបបុគ្គលិក'),
-        content: Text('តើអ្នកប្រាកដថាចង់លុប ${staff.fullName} ឬទេ?'),
+        title: const Text('លុបប្រតិបត្តិការ'),
+        content: Text('តើអ្នកប្រាកដថាចង់លុប ${syllabus.subjectId} ឬទេ?'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
@@ -46,13 +38,13 @@ class _StaffListViewScreenState extends State<StaffListViewScreen> {
           ElevatedButton(
             onPressed: () {
               setState(() {
-                dummyStaffs.removeWhere((s) => s.id == staff.id);
+                dummySyllabus.removeWhere((s) => s.id == syllabus.id);
               });
               Navigator.pop(ctx);
 
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text('${staff.fullName} ត្រូវបានលុបដោយជោគជ័យ'),
+                  content: Text('${syllabus.subjectId} ត្រូវបានលុបដោយជោគជ័យ'),
                   backgroundColor: Colors.green,
                 ),
               );
@@ -65,12 +57,12 @@ class _StaffListViewScreenState extends State<StaffListViewScreen> {
     );
   }
 
-  void _navigateToEdit(StaffModel staff) {
+  void _navigateToEdit(SyllabusModel syllabus) {
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) =>
-            AddStaffScreen(staff: staff), // ← rename screen if needed
+            AddSyllabusScreen(syllabus: syllabus), // ← rename screen if needed
       ),
     ).then((_) => setState(() {})); // refresh after edit
   }
@@ -86,8 +78,9 @@ class _StaffListViewScreenState extends State<StaffListViewScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final hasFilter =
-        _selectedSpecialization != null; // || _selectedDepartment != null
+    final hasFilter = _selectClass != null;
+    _selectedDepartment != null;
+    _selectedSubject != null;
 
     return Scaffold(
       appBar: AppBarWidget.simple(
@@ -111,22 +104,21 @@ class _StaffListViewScreenState extends State<StaffListViewScreen> {
           FilterRowWidget(
             filters: [
               FilterConfig(
-                value: _selectedSpecialization,
-                hint: 'ជំនាញ',
+                value: _selectClass,
+                hint: 'ថ្នាក់',
                 items: Set<String>.from(
-                  dummyStaffs.map((s) => s.specalization),
+                  dummySyllabus.map((s) => s.classId),
                 ).toList(),
                 onChanged: (value) {
-                  setState(() => _selectedSpecialization = value);
+                  setState(() => _selectClass = value);
                 },
               ),
               // Add more filters if your StaffModel has more filterable fields
               FilterConfig(
                 value: _selectedDepartment,
                 hint: 'នាយកដ្ឋាន',
-                items:
-                    Set<String>.from(dummyStaffs.map((s) => s.department))
-                        .toList(),
+                items: Set<String>.from(dummyStaffs.map((s) => s.department))
+                    .toList(),
                 onChanged: (value) =>
                     setState(() => _selectedDepartment = value),
               ),
@@ -135,7 +127,7 @@ class _StaffListViewScreenState extends State<StaffListViewScreen> {
 
           // Staff List
           Expanded(
-            child: filteredStaffs.isEmpty
+            child: dummySyllabus.isEmpty
                 ? Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -147,7 +139,9 @@ class _StaffListViewScreenState extends State<StaffListViewScreen> {
                         ),
                         const SizedBox(height: 16),
                         Text(
-                          hasFilter ? 'រកមិនឃើញបុគ្គលិក' : 'មិនទាន់មានបុគ្គលិក',
+                          hasFilter
+                              ? 'រកមិនឃើញតារាងមុខវិជ្ជា'
+                              : 'មិនទាន់មានតារាងមុខវិជ្ជា',
                           style: TextStyle(
                             fontSize: 18,
                             color: Colors.grey[600],
@@ -168,15 +162,15 @@ class _StaffListViewScreenState extends State<StaffListViewScreen> {
                     ),
                   )
                 : ListView.builder(
-                    itemCount: filteredStaffs.length,
+                    itemCount: dummySyllabus.length,
                     padding: const EdgeInsets.only(bottom: 16, top: 8),
                     itemBuilder: (context, index) {
-                      final staff = filteredStaffs[index];
+                      final syllabus = dummySyllabus[index];
 
-                      return ListItemWidget<StaffModel>(
-                        item: staff,
-                        title: staff.fullName,
-                        subtitle: staff.specalization,
+                      return ListItemWidget<SyllabusModel>(
+                        item: syllabus,
+                        title: syllabus.classId,
+                        subtitle: syllabus.teacherId,
                         // trailingSubtitle: staff.phone,           // optional
                         avatarBackgroundColor: Colors.deepOrange,
                         avatarTextColor: Colors.white,
@@ -186,19 +180,19 @@ class _StaffListViewScreenState extends State<StaffListViewScreen> {
                             context,
                             MaterialPageRoute(
                               builder: (context) =>
-                                  ShowStaffScreen(staffId: staff.id),
+                                  ShowSyllabusScreen(syllabusId: syllabus.id),
                             ),
                           );
                         },
                         actions: [
                           ItemAction.text(
                             label: 'កែ',
-                            onPressed: () => _navigateToEdit(staff),
+                            onPressed: () => _navigateToEdit(syllabus),
                             color: Colors.green,
                           ),
                           ItemAction.text(
                             label: 'លុប',
-                            onPressed: () => _showDeleteDialog(staff),
+                            onPressed: () => _showDeleteDialog(syllabus),
                             color: Colors.red,
                           ),
                         ],

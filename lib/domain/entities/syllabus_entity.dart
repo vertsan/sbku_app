@@ -1,15 +1,11 @@
-import 'package:sbku_app/domain/entities/syllabus_entity.dart';
-
-class SyllabusModel {
-  final SyllabusEntity entity;
+class SyllabusEntity {
   final String id;
   final String classid;
   final String teacherid;
   final String subjectid;
 
-  SyllabusModel(
-      {required this.entity,
-      required this.id,
+  SyllabusEntity(
+      {required this.id,
       required this.classid,
       required this.teacherid,
       required this.subjectid});

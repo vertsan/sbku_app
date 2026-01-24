@@ -1,10 +1,7 @@
 // presentation/screens/add_staff_screen.dart
 import 'package:flutter/material.dart';
-import 'package:sbku_app/controller/staff_form_controller.dart';
 import 'package:sbku_app/controller/syllabus_form_controller.dart';
-import 'package:sbku_app/data/dummy_staff.dart';
 import 'package:sbku_app/data/dummy_syllabus.dart';
-import 'package:sbku_app/model/staff_model.dart';
 import 'package:sbku_app/model/syllabus_model.dart';
 import 'package:sbku_app/presentation/widgets/appbar_widget.dart';
 import 'package:sbku_app/presentation/widgets/appbutton_widget.dart';

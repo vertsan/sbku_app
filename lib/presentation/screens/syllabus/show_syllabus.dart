@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sbku_app/data/dummy_staff.dart';
+import 'package:sbku_app/data/dummy_syllabus.dart';
 import 'package:sbku_app/presentation/widgets/appbar_widget.dart';
 
 class ShowSyllabusScreen extends StatelessWidget {
@@ -8,11 +9,11 @@ class ShowSyllabusScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final staff = dummyStaffs.firstWhere((s) => s.id == syllabusId);
+    final syllabus = dummySyllabus.firstWhere((s) => s.id == syllabusId);
 
     return Scaffold(
       appBar: AppBarWidget(
-        title: "ព័ត៌មានសិស្ស",
+        title: "ព័ត៌មានមុខវិជ្ជា",
         actions: [
           IconButton(onPressed: () {}, icon: const Icon(Icons.share)),
           IconButton(onPressed: () {}, icon: const Icon(Icons.person)),
@@ -29,11 +30,13 @@ class ShowSyllabusScreen extends StatelessWidget {
               child: Icon(Icons.person),
             ),
             const SizedBox(height: 20),
-            _row('Staff ID', staff.staffid),
-            _row('Name', staff.fullName),
-            _row('Specialization', staff.specalization),
-            _row('Phone', staff.phone),
-            _row('Email', staff.email),
+            _row('Syllabus ID', syllabus.id),
+            _row('Class ID', syllabus.classId),
+            _row('Subject ID', syllabus.subjectId),
+            _row('Teacher ID', syllabus.teacherId),
+            _row('Shift ID', syllabus.shiftId),
+            _row('Semester ID', syllabus.semesterId),
+            _row('Year ID', syllabus.yearId),
           ],
         ),
       ),

@@ -221,21 +221,21 @@ class _AddSyllabusScreenState extends State<AddSyllabusScreen> {
 
                 CustomTextField(
                   label: 'ថ្នាក់',
-                  controller: _formController.classNameController,
+                  controller: _formController.classIdController,
                   // validator: (v) =>
                   //     _formController.validateRequired(v, 'Staff ID'),
                 ),
 
                 CustomTextField(
                   label: 'សាស្ត្រាចារ្យ',
-                  controller: _formController.teacherNameController,
+                  controller: _formController.teacherIdController,
                   // validator: (v) =>
                   //     _formController.validateRequired(v, 'Full Name'),
                 ),
 
                 CustomTextField(
                   label: 'មុខវិជ្ជា',
-                  controller: _formController.subjectNameController,
+                  controller: _formController.subjectIdController,
                   // validator: (v) =>
                   //     _formController.validateRequired(v, 'Specialization'),
                 ),

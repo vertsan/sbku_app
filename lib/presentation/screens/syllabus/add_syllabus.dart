@@ -1,4 +1,3 @@
-// presentation/screens/add_staff_screen.dart
 import 'package:flutter/material.dart';
 import 'package:sbku_app/controller/syllabus_form_controller.dart';
 import 'package:sbku_app/data/dummy_syllabus.dart';
@@ -77,17 +76,21 @@ class _AddSyllabusScreenState extends State<AddSyllabusScreen> {
   }
 
   void _updateSyllabus() {
-    final updated = _formController.toSyllabusModel();
+    // Update logic here
 
-    final index = dummySyllabus.indexWhere((s) => s.id == updated.id);
+    final model = _formController.toSyllabusModel();
+    final updateEnity = model.toEntity();
+
+    final index = dummySyllabus.indexWhere((s) => s.id == updateEnity.id);
     if (index != -1) {
-      dummySyllabus[index] = updated;
+      dummySyllabus[index] = updateEnity;
     }
   }
 
   void _addNewSyllabus() {
-    final newSyllabus = _formController.toSyllabusModel();
-    dummySyllabus.add(newSyllabus);
+    // Add logic here
+    final model = _formController.toSyllabusModel();
+    dummySyllabus.add(model.toEntity());
   }
 
   void _showSuccessMessage() {
@@ -221,21 +224,21 @@ class _AddSyllabusScreenState extends State<AddSyllabusScreen> {
 
                 CustomTextField(
                   label: 'ថ្នាក់',
-                  controller: _formController.classIdController,
+                  controller: _formController.classController,
                   // validator: (v) =>
                   //     _formController.validateRequired(v, 'Staff ID'),
                 ),
 
                 CustomTextField(
                   label: 'សាស្ត្រាចារ្យ',
-                  controller: _formController.teacherIdController,
+                  controller: _formController.teacherController,
                   // validator: (v) =>
                   //     _formController.validateRequired(v, 'Full Name'),
                 ),
 
                 CustomTextField(
                   label: 'មុខវិជ្ជា',
-                  controller: _formController.subjectIdController,
+                  controller: _formController.subjectController,
                   // validator: (v) =>
                   //     _formController.validateRequired(v, 'Specialization'),
                 ),

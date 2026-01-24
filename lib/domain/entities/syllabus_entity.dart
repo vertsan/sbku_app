@@ -1,14 +1,18 @@
 class SyllabusEntity {
   final String id;
-  final String classid;
-  final String teacherid;
-  final String subjectid;
+  final String classId;
+  final String teacherId;
+  final String subjectId;
   final String shiftId;
+  final String semesterId;
+  final String yearId;
 
   SyllabusEntity(
       {required this.id,
-      required this.classid,
-      required this.teacherid,
-      required this.subjectid,
-      required this.shiftId});
+      required this.classId,
+      required this.teacherId,
+      required this.subjectId,
+      required this.shiftId,
+      required this.semesterId,
+      required this.yearId});
 }

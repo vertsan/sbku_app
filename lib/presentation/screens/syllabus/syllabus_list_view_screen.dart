@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sbku_app/data/dummy_staff.dart'; // assuming this exports List<StaffModel> dummyStaffs
+import 'package:sbku_app/data/dummy_staff.dart';
 import 'package:sbku_app/data/dummy_syllabus.dart';
 import 'package:sbku_app/model/syllabus_model.dart';
-import 'package:sbku_app/presentation/screens/staff/add_staff.dart';
 import 'package:sbku_app/presentation/screens/syllabus/add_syllabus.dart';
 import 'package:sbku_app/presentation/screens/syllabus/show_syllabus.dart';
 import 'package:sbku_app/presentation/widgets/appbar_widget.dart';
@@ -13,41 +12,74 @@ class SyllabusListViewScreen extends StatefulWidget {
   const SyllabusListViewScreen({super.key});
 
   @override
-  State<SyllabusListViewScreen> createState() => _StaffListViewScreenState();
+  State<SyllabusListViewScreen> createState() => _SyllabusListViewScreenState();
 }
 
-class _StaffListViewScreenState extends State<SyllabusListViewScreen> {
-  // Filter value
-  String? _selectClass;
+class _SyllabusListViewScreenState extends State<SyllabusListViewScreen> {
+  String? _selectedClass;
   String? _selectedDepartment;
-  String? _selectedSubject;
+
+  /// ENTITY → MODEL (UI ONLY)
+  List<SyllabusModel> get _syllabusModels =>
+      dummySyllabus.map(SyllabusModel.fromEntity).toList();
+
+  List<SyllabusModel> get _filteredSyllabus {
+    return _syllabusModels.where((s) {
+      if (_selectedClass != null && s.className != _selectedClass) {
+        return false;
+      }
+      return true;
+    }).toList();
+  }
+
+  void _navigateToAdd() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => const AddSyllabusScreen()),
+    ).then((_) => setState(() {}));
+  }
+
+  void _navigateToEdit(SyllabusModel syllabus) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => AddSyllabusScreen(syllabus: syllabus),
+      ),
+    ).then((_) => setState(() {}));
+  }
 
   void _showDeleteDialog(SyllabusModel syllabus) {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('លុបប្រតិបត្តិការ'),
-        content: Text('តើអ្នកប្រាកដថាចង់លុប ${syllabus.subjectId} ឬទេ?'),
+        title: const Text('លុប'),
+        content: Text('តើអ្នកប្រាកដថាចង់លុប ${syllabus.subjectName} ឬទេ?'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
             child: const Text('បោះបង់'),
           ),
           ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.red,
+            ),
             onPressed: () {
               setState(() {
-                dummySyllabus.removeWhere((s) => s.id == syllabus.id);
+                dummySyllabus.removeWhere(
+                  (e) => e.id == syllabus.id,
+                );
               });
               Navigator.pop(ctx);
 
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text('${syllabus.subjectId} ត្រូវបានលុបដោយជោគជ័យ'),
+                  content: Text(
+                    '${syllabus.subjectName} ត្រូវបានលុបដោយជោគជ័យ',
+                  ),
                   backgroundColor: Colors.green,
                 ),
               );
             },
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
             child: const Text('លុប'),
           ),
         ],
@@ -55,41 +87,15 @@ class _StaffListViewScreenState extends State<SyllabusListViewScreen> {
     );
   }
 
-  void _navigateToEdit(SyllabusModel syllabus) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) =>
-            AddSyllabusScreen(syllabus: syllabus), // ← rename screen if needed
-      ),
-    ).then((_) => setState(() {})); // refresh after edit
-  }
-
-  void _navigateToAdd() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const AddStaffScreen(),
-      ),
-    ).then((_) => setState(() {})); // refresh after add
-  }
-
   @override
   Widget build(BuildContext context) {
-    final hasFilter = _selectClass != null;
-    _selectedDepartment != null;
-    _selectedSubject != null;
+    final syllabusList = _filteredSyllabus;
+    final hasFilter = _selectedClass != null;
 
     return Scaffold(
       appBar: AppBarWidget.simple(
-        title: 'បញ្ជីបុគ្គលិក',
+        title: 'បញ្ជីមុខវិជ្ជា',
         actions: [
-          IconButton(
-            onPressed: () {
-              // TODO: implement share / export functionality
-            },
-            icon: const Icon(Icons.share, color: Colors.white),
-          ),
           IconButton(
             onPressed: _navigateToAdd,
             icon: const Icon(Icons.add, color: Colors.white),
@@ -98,40 +104,34 @@ class _StaffListViewScreenState extends State<SyllabusListViewScreen> {
       ),
       body: Column(
         children: [
-          // Filters Row – customize according to your needs
+          /// FILTERS
           FilterRowWidget(
             filters: [
               FilterConfig(
-                value: _selectClass,
                 hint: 'ថ្នាក់',
-                items: Set<String>.from(
-                  dummySyllabus.map((s) => s.classId),
-                ).toList(),
-                onChanged: (value) {
-                  setState(() => _selectClass = value);
-                },
+                value: _selectedClass,
+                items: _syllabusModels.map((s) => s.className).toSet().toList(),
+                onChanged: (value) => setState(() => _selectedClass = value),
               ),
-              // Add more filters if your StaffModel has more filterable fields
               FilterConfig(
-                value: _selectedDepartment,
                 hint: 'នាយកដ្ឋាន',
-                items: Set<String>.from(dummyStaffs.map((s) => s.department))
-                    .toList(),
+                value: _selectedDepartment,
+                items: dummyStaffs.map((s) => s.department).toSet().toList(),
                 onChanged: (value) =>
                     setState(() => _selectedDepartment = value),
               ),
             ],
           ),
 
-          // Staff List
+          /// LIST
           Expanded(
-            child: dummySyllabus.isEmpty
+            child: syllabusList.isEmpty
                 ? Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
-                          Icons.people_outline,
+                          Icons.menu_book_outlined,
                           size: 80,
                           color: Colors.grey[300],
                         ),
@@ -146,52 +146,41 @@ class _StaffListViewScreenState extends State<SyllabusListViewScreen> {
                             fontWeight: FontWeight.w500,
                           ),
                         ),
-                        if (hasFilter) ...[
-                          const SizedBox(height: 8),
-                          Text(
-                            'សូមកែប្រែការតម្រង',
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.grey[500],
-                            ),
-                          ),
-                        ],
                       ],
                     ),
                   )
                 : ListView.builder(
-                    itemCount: dummySyllabus.length,
-                    padding: const EdgeInsets.only(bottom: 16, top: 8),
+                    itemCount: syllabusList.length,
+                    padding: const EdgeInsets.symmetric(vertical: 8),
                     itemBuilder: (context, index) {
-                      final syllabus = dummySyllabus[index];
+                      final syllabus = syllabusList[index];
 
                       return ListItemWidget<SyllabusModel>(
                         item: syllabus,
-                        title: syllabus.classId,
-                        subtitle: syllabus.teacherId,
-                        // trailingSubtitle: staff.phone,           // optional
+                        title: syllabus.className,
+                        subtitle: syllabus.teacherName,
                         avatarBackgroundColor: Colors.deepOrange,
                         avatarTextColor: Colors.white,
-                        // showAvatarImage: staff has image url → can be extended later
                         onTap: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) =>
-                                  ShowSyllabusScreen(syllabusId: syllabus.id),
+                              builder: (_) => ShowSyllabusScreen(
+                                syllabusId: syllabus.id,
+                              ),
                             ),
                           );
                         },
                         actions: [
                           ItemAction.text(
                             label: 'កែ',
-                            onPressed: () => _navigateToEdit(syllabus),
                             color: Colors.green,
+                            onPressed: () => _navigateToEdit(syllabus),
                           ),
                           ItemAction.text(
                             label: 'លុប',
-                            onPressed: () => _showDeleteDialog(syllabus),
                             color: Colors.red,
+                            onPressed: () => _showDeleteDialog(syllabus),
                           ),
                         ],
                       );

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sbku_app/data/dummy_staff.dart';
 import 'package:sbku_app/data/dummy_syllabus.dart';
 import 'package:sbku_app/presentation/widgets/appbar_widget.dart';
 
@@ -31,9 +30,9 @@ class ShowSyllabusScreen extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             _row('Syllabus ID', syllabus.id),
-            _row('Class ID', syllabus.classId),
-            _row('Subject ID', syllabus.subjectId),
-            _row('Teacher ID', syllabus.teacherId),
+            _row('Class Name', syllabus.classId),
+            _row('Subject Name', syllabus.subjectId),
+            _row('Teacher Name', syllabus.teacherId),
             _row('Shift ID', syllabus.shiftId),
             _row('Semester ID', syllabus.semesterId),
             _row('Year ID', syllabus.yearId),

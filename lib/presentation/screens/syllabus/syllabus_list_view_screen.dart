@@ -1,7 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:sbku_app/data/dummy_class.dart';
+import 'package:sbku_app/data/dummy_semester.dart';
+import 'package:sbku_app/data/dummy_shirt.dart';
 import 'package:sbku_app/data/dummy_staff.dart';
+import 'package:sbku_app/data/dummy_subject.dart';
 import 'package:sbku_app/data/dummy_syllabus.dart';
+import 'package:sbku_app/data/dummy_teacher.dart';
+
+import 'package:sbku_app/data/dummy_year.dart';
+
+import 'package:sbku_app/domain/entities/syllabus_entity.dart';
 import 'package:sbku_app/model/syllabus_model.dart';
+import 'package:sbku_app/model/class_model.dart';
+import 'package:sbku_app/model/teacher_model.dart';
+import 'package:sbku_app/model/subject_model.dart';
+import 'package:sbku_app/model/shift_model.dart';
+import 'package:sbku_app/model/semester_model.dart';
+import 'package:sbku_app/model/year_model.dart';
+
 import 'package:sbku_app/presentation/screens/syllabus/add_syllabus.dart';
 import 'package:sbku_app/presentation/screens/syllabus/show_syllabus.dart';
 import 'package:sbku_app/presentation/widgets/appbar_widget.dart';
@@ -19,9 +35,45 @@ class _SyllabusListViewScreenState extends State<SyllabusListViewScreen> {
   String? _selectedClass;
   String? _selectedDepartment;
 
-  /// ENTITY → MODEL (UI ONLY)
-  List<SyllabusModel> get _syllabusModels =>
-      dummySyllabus.map(SyllabusModel.fromEntity).toList();
+  // 🔹 Lookup maps (built once)
+  late final Map<String, ClassModel> _classMap = {
+    for (final c in dummyClasses) c.classId: c,
+  };
+
+  late final Map<String, TeacherModel> _teacherMap = {
+    for (final t in dummyTeachers) t.id: t,
+  };
+
+  late final Map<String, SubjectModel> _subjectMap = {
+    for (final s in dummySubjects) s.id: s,
+  };
+
+  late final Map<String, ShiftModel> _shiftMap = {
+    for (final s in dummyShifts) s.shiftId: s,
+  };
+
+  late final Map<String, SemesterModel> _semesterMap = {
+    for (final s in dummySemesters) s.id: s,
+  };
+
+  late final Map<String, YearModel> _yearMap = {
+    for (final y in dummyYears) y.yearId: y,
+  };
+
+  /// ✅ ENTITY → MODEL (UI mapping with lookups)
+  List<SyllabusModel> get _syllabusModels {
+    return dummySyllabus.map((SyllabusEntity e) {
+      return SyllabusModel(
+        id: e.id,
+        className: _classMap[e.classId]?.className ?? '',
+        teacherName: _teacherMap[e.teacherId]?.fullName ?? '',
+        subjectName: _subjectMap[e.subjectId]?.subjectName ?? '',
+        shiftName: _shiftMap[e.shiftId]?.shiftName ?? '',
+        semesterName: _semesterMap[e.semesterId]?.name ?? '',
+        yearName: _yearMap[e.yearId]?.yearName ?? '',
+      );
+    }).toList();
+  }
 
   List<SyllabusModel> get _filteredSyllabus {
     return _syllabusModels.where((s) {
@@ -41,11 +93,12 @@ class _SyllabusListViewScreenState extends State<SyllabusListViewScreen> {
 
   void _navigateToEdit(SyllabusModel syllabus) {
     Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (_) => AddSyllabusScreen(syllabus: syllabus),
-      ),
-    ).then((_) => setState(() {}));
+        context,
+        MaterialPageRoute(
+          builder: (_) => AddSyllabusScreen(
+            syllabus: dummySyllabus.firstWhere((s) => s.id == syllabus.id),
+          ),
+        )).then((_) => setState(() {}));
   }
 
   void _showDeleteDialog(SyllabusModel syllabus) {
@@ -60,22 +113,16 @@ class _SyllabusListViewScreenState extends State<SyllabusListViewScreen> {
             child: const Text('បោះបង់'),
           ),
           ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.red,
-            ),
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
             onPressed: () {
               setState(() {
-                dummySyllabus.removeWhere(
-                  (e) => e.id == syllabus.id,
-                );
+                dummySyllabus.removeWhere((e) => e.id == syllabus.id);
               });
               Navigator.pop(ctx);
 
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text(
-                    '${syllabus.subjectName} ត្រូវបានលុបដោយជោគជ័យ',
-                  ),
+                  content: Text('${syllabus.subjectName} ត្រូវបានលុបដោយជោគជ័យ'),
                   backgroundColor: Colors.green,
                 ),
               );
@@ -104,7 +151,6 @@ class _SyllabusListViewScreenState extends State<SyllabusListViewScreen> {
       ),
       body: Column(
         children: [
-          /// FILTERS
           FilterRowWidget(
             filters: [
               FilterConfig(
@@ -122,36 +168,17 @@ class _SyllabusListViewScreenState extends State<SyllabusListViewScreen> {
               ),
             ],
           ),
-
-          /// LIST
           Expanded(
             child: syllabusList.isEmpty
                 ? Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.menu_book_outlined,
-                          size: 80,
-                          color: Colors.grey[300],
-                        ),
-                        const SizedBox(height: 16),
-                        Text(
-                          hasFilter
-                              ? 'រកមិនឃើញតារាងមុខវិជ្ជា'
-                              : 'មិនទាន់មានតារាងមុខវិជ្ជា',
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.grey[600],
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
+                    child: Text(
+                      hasFilter
+                          ? 'រកមិនឃើញតារាងមុខវិជ្ជា'
+                          : 'មិនទាន់មានតារាងមុខវិជ្ជា',
                     ),
                   )
                 : ListView.builder(
                     itemCount: syllabusList.length,
-                    padding: const EdgeInsets.symmetric(vertical: 8),
                     itemBuilder: (context, index) {
                       final syllabus = syllabusList[index];
 
@@ -159,8 +186,6 @@ class _SyllabusListViewScreenState extends State<SyllabusListViewScreen> {
                         item: syllabus,
                         title: syllabus.className,
                         subtitle: syllabus.teacherName,
-                        avatarBackgroundColor: Colors.deepOrange,
-                        avatarTextColor: Colors.white,
                         onTap: () {
                           Navigator.push(
                             context,

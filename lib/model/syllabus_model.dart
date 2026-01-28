@@ -19,50 +19,9 @@ class SyllabusModel {
     required this.yearName,
   });
 
-  /// 🔁 Convert MODEL → ENTITY (for saving / storage)
-  SyllabusEntity toEntity() {
-    return SyllabusEntity(
-      id: id,
-      classId: className,
-      teacherId: teacherName,
-      subjectId: subjectName,
-      shiftId: shiftName,
-      semesterId: semesterName,
-      yearId: yearName,
-    );
-  }
+  /// ❌ REMOVE THIS (unsafe without ID lookup)
+  /// SyllabusEntity toEntity() { ... }
 
-  /// 🔁 Convert ENTITY → MODEL (for UI / forms)
-  factory SyllabusModel.fromEntity(SyllabusEntity entity) {
-    return SyllabusModel(
-      id: entity.id,
-      className: entity.classId,
-      teacherName: entity.teacherId,
-      subjectName: entity.subjectId,
-      shiftName: entity.shiftId,
-      semesterName: entity.semesterId,
-      yearName: entity.yearId,
-    );
-  }
-
-  /// 🧩 Copy with (useful for edit/update)
-  SyllabusModel copyWith({
-    String? id,
-    String? className,
-    String? teacherName,
-    String? subjectName,
-    String? shiftName,
-    String? semesterName,
-    String? yearName,
-  }) {
-    return SyllabusModel(
-      id: id ?? this.id,
-      className: className ?? this.className,
-      teacherName: teacherName ?? this.teacherName,
-      subjectName: subjectName ?? this.subjectName,
-      shiftName: shiftName ?? this.shiftName,
-      semesterName: semesterName ?? this.semesterName,
-      yearName: yearName ?? this.yearName,
-    );
-  }
+  /// ❌ REMOVE THIS (entity has IDs, model has names)
+  /// factory SyllabusModel.fromEntity(...)
 }

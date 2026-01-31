@@ -1,5 +1,5 @@
 class StudentEntity {
-  final String studentId;
+  final String id;
   final String studentName;
   final String facultyId;
   final String majorId;
@@ -8,7 +8,7 @@ class StudentEntity {
   final String shiftId;
 
   StudentEntity({
-    required this.studentId,
+    required this.id,
     required this.studentName,
     required this.facultyId,
     required this.majorId,

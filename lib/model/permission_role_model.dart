@@ -1,6 +1,6 @@
 class PermissionRoleModel {
-  final String permissionid;
+  final String id;
   final String roleid;
 
-  PermissionRoleModel({required this.permissionid, required this.roleid});
+  PermissionRoleModel({required this.id, required this.roleid});
 }

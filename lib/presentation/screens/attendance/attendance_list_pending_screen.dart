@@ -124,7 +124,7 @@ class _TeacherStartAttendanceScreenState
               value: _majorId,
               items: dummyMajors
                   .map((m) => DropdownMenuItem(
-                      value: m.majorId, child: Text(m.majorName)))
+                      value: m.id, child: Text(m.majorName)))
                   .toList(),
               onChanged: (v) => setState(() => _majorId = v!),
             ),
@@ -133,7 +133,7 @@ class _TeacherStartAttendanceScreenState
               value: _classId,
               items: dummyClasses
                   .map((c) => DropdownMenuItem(
-                      value: c.classId, child: Text(c.className)))
+                      value: c.id, child: Text(c.className)))
                   .toList(),
               onChanged: (v) => setState(() => _classId = v!),
             ),

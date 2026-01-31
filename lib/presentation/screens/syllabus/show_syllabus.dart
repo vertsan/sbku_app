@@ -20,7 +20,7 @@ class ShowSyllabusScreen extends StatelessWidget {
     // 🔹 Lookups
     final className = dummyClasses
         .firstWhere(
-          (c) => c.classId == syllabus.classId,
+          (c) => c.id == syllabus.classId,
           orElse: () => dummyClasses.first,
         )
         .className;

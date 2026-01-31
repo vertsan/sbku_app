@@ -37,7 +37,7 @@ class _SyllabusListViewScreenState extends State<SyllabusListViewScreen> {
 
   // 🔹 Lookup maps (built once)
   late final Map<String, ClassModel> _classMap = {
-    for (final c in dummyClasses) c.classId: c,
+    for (final c in dummyClasses) c.id: c,
   };
 
   late final Map<String, TeacherModel> _teacherMap = {

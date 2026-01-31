@@ -216,7 +216,7 @@ class _StudentAttendanceCheckInScreenState
                 _buildInfoRow(
                     'ថ្នាក់',
                     dummyClasses
-                        .firstWhere((c) => c.classId == _nearbySession!.classId)
+                        .firstWhere((c) => c.id == _nearbySession!.classId)
                         .className),
                 _buildInfoRow(
                     'វេន',

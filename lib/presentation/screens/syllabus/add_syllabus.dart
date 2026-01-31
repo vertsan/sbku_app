@@ -37,7 +37,7 @@ class _AddSyllabusScreenState extends State<AddSyllabusScreen> {
 
     _formController = SyllabusFormController(
       entity: widget.syllabus,
-      classMap: {for (final c in dummyClasses) c.classId: c},
+      classMap: {for (final c in dummyClasses) c.id: c},
       teacherMap: {for (final t in dummyTeachers) t.id: t},
       subjectMap: {for (final s in dummySubjects) s.id: s},
       shiftMap: {for (final s in dummyShifts) s.id: s},

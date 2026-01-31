@@ -41,7 +41,7 @@ class TeacherActiveSessionsListScreen extends StatelessWidget {
                     ),
                     title: Text(
                       dummyClasses
-                          .firstWhere((c) => c.classId == session.classId)
+                          .firstWhere((c) => c.id == session.classId)
                           .className,
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),

@@ -33,11 +33,11 @@ class _AttendanceListViewScreenState extends State<AttendanceListViewScreen> {
                 .firstWhere((f) => f.id == e.facultyId)
                 .facultyName,
             majorName:
-                dummyMajors.firstWhere((m) => m.majorId == e.majorId).majorName,
+                dummyMajors.firstWhere((m) => m.id == e.majorId).majorName,
             shiftName:
                 dummyShifts.firstWhere((s) => s.id == e.id).shiftName,
             className: dummyClasses
-                .firstWhere((c) => c.classId == e.classId)
+                .firstWhere((c) => c.id == e.classId)
                 .className,
             yearName:
                 dummyYears.firstWhere((y) => y.id == e.yearId).yearName,

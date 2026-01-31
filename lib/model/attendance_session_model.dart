@@ -68,11 +68,11 @@ class AttendanceSession {
   List<AttendanceEntity> toAttendanceEntities(
       List<StudentEntity> classStudents) {
     return classStudents.map((student) {
-      final isPresent = attendedStudentIds.contains(student.studentId);
+      final isPresent = attendedStudentIds.contains(student.id);
 
       return AttendanceEntity(
-        id: '${id}_${student.studentId}',
-        studentId: student.studentId,
+        id: '${id}_${student.id}',
+        studentId: student.id,
         studentName: student.studentName,
         facultyId: facultyId,
         majorId: majorId,

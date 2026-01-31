@@ -12,7 +12,7 @@ import 'package:sbku_app/model/attendance_session_model.dart';
 final List<StudentEntity> dummyStudents = [
   // Class C01 - Faculty F01, Major M01, Year Y1, Shift SH1 (5 students)
   StudentEntity(
-    studentId: 'S001',
+    id: 'S001',
     studentName: 'Sok Dara',
     facultyId: 'F01',
     majorId: 'M01',
@@ -21,7 +21,7 @@ final List<StudentEntity> dummyStudents = [
     shiftId: 'SH1',
   ),
   StudentEntity(
-    studentId: 'S004',
+    id: 'S004',
     studentName: 'Sophea Chen',
     facultyId: 'F01',
     majorId: 'M01',
@@ -30,7 +30,7 @@ final List<StudentEntity> dummyStudents = [
     shiftId: 'SH1',
   ),
   StudentEntity(
-    studentId: 'S005',
+    id: 'S005',
     studentName: 'Rachana Pov',
     facultyId: 'F01',
     majorId: 'M01',
@@ -39,7 +39,7 @@ final List<StudentEntity> dummyStudents = [
     shiftId: 'SH1',
   ),
   StudentEntity(
-    studentId: 'S006',
+    id: 'S006',
     studentName: 'Dara Kim',
     facultyId: 'F01',
     majorId: 'M01',
@@ -48,7 +48,7 @@ final List<StudentEntity> dummyStudents = [
     shiftId: 'SH1',
   ),
   StudentEntity(
-    studentId: 'S007',
+    id: 'S007',
     studentName: 'Sreymom Ly',
     facultyId: 'F01',
     majorId: 'M01',
@@ -59,7 +59,7 @@ final List<StudentEntity> dummyStudents = [
 
   // Class C02 - Faculty F02, Major M02, Year Y2, Shift SH2 (3 students)
   StudentEntity(
-    studentId: 'S002',
+    id: 'S002',
     studentName: 'Chanthy Sok',
     facultyId: 'F02',
     majorId: 'M02',
@@ -68,7 +68,7 @@ final List<StudentEntity> dummyStudents = [
     shiftId: 'SH2',
   ),
   StudentEntity(
-    studentId: 'S008',
+    id: 'S008',
     studentName: 'Visal Chea',
     facultyId: 'F02',
     majorId: 'M02',
@@ -77,7 +77,7 @@ final List<StudentEntity> dummyStudents = [
     shiftId: 'SH2',
   ),
   StudentEntity(
-    studentId: 'S010',
+    id: 'S010',
     studentName: 'Chamroeun Heng',
     facultyId: 'F02',
     majorId: 'M02',
@@ -88,7 +88,7 @@ final List<StudentEntity> dummyStudents = [
 
   // Class C03 - Faculty F01, Major M01, Year Y3, Shift SH3 (2 students)
   StudentEntity(
-    studentId: 'S003',
+    id: 'S003',
     studentName: 'Vannak Lim',
     facultyId: 'F01',
     majorId: 'M01',
@@ -97,7 +97,7 @@ final List<StudentEntity> dummyStudents = [
     shiftId: 'SH3',
   ),
   StudentEntity(
-    studentId: 'S009',
+    id: 'S009',
     studentName: 'Bopha Tan',
     facultyId: 'F01',
     majorId: 'M01',
@@ -113,7 +113,7 @@ final List<StudentEntity> dummyStudents = [
 
 StudentEntity? getStudentById(String studentId) {
   try {
-    return dummyStudents.firstWhere((s) => s.studentId == studentId);
+    return dummyStudents.firstWhere((s) => s.id == studentId);
   } catch (e) {
     return null;
   }
@@ -122,7 +122,7 @@ StudentEntity? getStudentById(String studentId) {
 String getStudentNameById(String studentId) {
   try {
     return dummyStudents
-        .firstWhere((s) => s.studentId == studentId)
+        .firstWhere((s) => s.id == studentId)
         .studentName;
   } catch (e) {
     return 'Unknown Student';
@@ -253,11 +253,11 @@ void generateAttendanceFromSession(AttendanceSession session) {
 
   // Create attendance record for each student
   for (var student in classStudents) {
-    final isPresent = session.attendedStudentIds.contains(student.studentId);
+    final isPresent = session.attendedStudentIds.contains(student.id);
 
     final attendanceRecord = AttendanceEntity(
-      id: '${session.id}_${student.studentId}',
-      studentId: student.studentId,
+      id: '${session.id}_${student.id}',
+      studentId: student.id,
       studentName: student.studentName,
       facultyId: session.facultyId,
       majorId: session.majorId,

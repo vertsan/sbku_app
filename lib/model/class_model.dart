@@ -1,5 +1,5 @@
 class ClassModel {
-  final String classId;
+  final String id;
   final String className;
   final String classcode;
   final String majorId;
@@ -7,7 +7,7 @@ class ClassModel {
   final String semester;
 
   ClassModel(
-      {required this.classId,
+      {required this.id,
       required this.className,
       required this.classcode,
       required this.majorId,

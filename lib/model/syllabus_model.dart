@@ -1,4 +1,3 @@
-import 'package:sbku_app/domain/entities/syllabus_entity.dart';
 
 class SyllabusModel {
   final String id;

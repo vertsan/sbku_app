@@ -1,11 +1,11 @@
 import 'package:sbku_app/data/dummy_year.dart';
 
 class YearModel {
-  final String yearId; // e.g. Y1
+  final String id; // e.g. Y1
   final String yearName; // e.g. Year 1
 
   const YearModel({
-    required this.yearId,
+    required this.id,
     required this.yearName,
   });
 
@@ -17,10 +17,10 @@ class YearModel {
 
     final match = dummyYears.firstWhere(
       (y) => y.yearName == yearName,
-      orElse: () => const YearModel(yearId: '', yearName: ''),
+      orElse: () => const YearModel(id: '', yearName: ''),
     );
 
-    return match.yearId.isEmpty ? null : match.yearId;
+    return match.id.isEmpty ? null : match.id;
   }
 
   // ---------------------------
@@ -30,8 +30,8 @@ class YearModel {
     if (yearId == null) return null;
 
     final match = dummyYears.firstWhere(
-      (y) => y.yearId == yearId,
-      orElse: () => const YearModel(yearId: '', yearName: ''),
+      (y) => y.id == yearId,
+      orElse: () => const YearModel(id: '', yearName: ''),
     );
 
     return match.yearName.isEmpty ? null : match.yearName;

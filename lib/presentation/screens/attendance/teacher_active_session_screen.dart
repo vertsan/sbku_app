@@ -140,7 +140,7 @@ class _TeacherStartAttendanceScreenState
               value: _yearId,
               items: dummyYears
                   .map((y) => DropdownMenuItem(
-                      value: y.yearId, child: Text(y.yearName)))
+                      value: y.id, child: Text(y.yearName)))
                   .toList(),
               onChanged: (v) => setState(() => _yearId = v!),
             ),
@@ -149,7 +149,7 @@ class _TeacherStartAttendanceScreenState
               value: _shiftId,
               items: dummyShifts
                   .map((s) => DropdownMenuItem(
-                      value: s.shiftId, child: Text(s.shiftName)))
+                      value: s.id, child: Text(s.shiftName)))
                   .toList(),
               onChanged: (v) => setState(() => _shiftId = v!),
             ),

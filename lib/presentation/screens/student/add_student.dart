@@ -269,7 +269,7 @@ class _AddStudentScreenState extends State<AddStudentScreen> {
                 CustomDropdown(
                   label: 'ឆ្នាំសិក្សា',
                   value: _formController.selectedYearId,
-                  items: dummyYears.map((y) => y.yearId).toList(),
+                  items: dummyYears.map((y) => y.id).toList(),
                   onChanged: (value) {
                     setState(() {
                       _formController.selectedYearId = value!;

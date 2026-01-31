@@ -1,6 +1,6 @@
 class UserRoleModel {
-  final String userid;
+  final String id;
   final Stream roleid;
 
-  UserRoleModel({required this.userid, required this.roleid});
+  UserRoleModel({required this.id, required this.roleid});
 }

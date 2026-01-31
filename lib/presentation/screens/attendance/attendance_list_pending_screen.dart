@@ -29,7 +29,7 @@ class _TeacherStartAttendanceScreenState
   String _majorId = 'M01';
   String _classId = 'C01';
   String _yearId = 'Y1';
-  String _shiftId = 'SH1';
+  String _id = 'SH1';
 
   bool _isLoading = false;
   Position? _currentLocation;
@@ -70,7 +70,7 @@ class _TeacherStartAttendanceScreenState
 
         classId: _classId,
         yearId: _yearId,
-        shiftId: _shiftId,
+        shiftId: _id,
         latitude: _currentLocation!.latitude,
         longitude: _currentLocation!.longitude,
         startTime: DateTime.now(),
@@ -142,18 +142,18 @@ class _TeacherStartAttendanceScreenState
               value: _yearId,
               items: dummyYears
                   .map((y) => DropdownMenuItem(
-                      value: y.yearId, child: Text(y.yearName)))
+                      value: y.id, child: Text(y.yearName)))
                   .toList(),
               onChanged: (v) => setState(() => _yearId = v!),
             ),
             _buildDropdown(
               label: 'វេន',
-              value: _shiftId,
+              value: _id,
               items: dummyShifts
                   .map((s) => DropdownMenuItem(
-                      value: s.shiftId, child: Text(s.shiftName)))
+                      value: s.id, child: Text(s.shiftName)))
                   .toList(),
-              onChanged: (v) => setState(() => _shiftId = v!),
+              onChanged: (v) => setState(() => _id = v!),
             ),
             const Spacer(),
             ElevatedButton(

@@ -3,13 +3,11 @@ import 'package:sbku_app/controller/syllabus_form_controller.dart';
 import 'package:sbku_app/data/dummy_class.dart';
 import 'package:sbku_app/data/dummy_semester.dart';
 import 'package:sbku_app/data/dummy_shirt.dart';
-import 'package:sbku_app/data/dummy_staff.dart';
 import 'package:sbku_app/data/dummy_subject.dart';
 import 'package:sbku_app/data/dummy_syllabus.dart';
 import 'package:sbku_app/data/dummy_teacher.dart';
 import 'package:sbku_app/data/dummy_year.dart';
 import 'package:sbku_app/domain/entities/syllabus_entity.dart';
-import 'package:sbku_app/model/teacher_model.dart';
 import 'package:sbku_app/presentation/widgets/appbar_widget.dart';
 import 'package:sbku_app/presentation/widgets/appbutton_widget.dart';
 import 'package:sbku_app/presentation/widgets/custom_text_field.dart';
@@ -42,9 +40,9 @@ class _AddSyllabusScreenState extends State<AddSyllabusScreen> {
       classMap: {for (final c in dummyClasses) c.classId: c},
       teacherMap: {for (final t in dummyTeachers) t.id: t},
       subjectMap: {for (final s in dummySubjects) s.id: s},
-      shiftMap: {for (final s in dummyShifts) s.shiftId: s},
+      shiftMap: {for (final s in dummyShifts) s.id: s},
       semesterMap: {for (final s in dummySemesters) s.id: s},
-      yearMap: {for (final y in dummyYears) y.yearId: y},
+      yearMap: {for (final y in dummyYears) y.id: y},
     );
   }
 

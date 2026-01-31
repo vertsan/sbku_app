@@ -35,16 +35,16 @@ class _AttendanceListViewScreenState extends State<AttendanceListViewScreen> {
             majorName:
                 dummyMajors.firstWhere((m) => m.majorId == e.majorId).majorName,
             shiftName:
-                dummyShifts.firstWhere((s) => s.shiftId == e.shiftId).shiftName,
+                dummyShifts.firstWhere((s) => s.id == e.id).shiftName,
             className: dummyClasses
                 .firstWhere((c) => c.classId == e.classId)
                 .className,
             yearName:
-                dummyYears.firstWhere((y) => y.yearId == e.yearId).yearName,
+                dummyYears.firstWhere((y) => y.id == e.yearId).yearName,
             startTime:
-                dummyShifts.firstWhere((s) => s.shiftId == e.shiftId).startTime,
+                dummyShifts.firstWhere((s) => s.id == e.id).startTime,
             endTime:
-                dummyShifts.firstWhere((s) => s.shiftId == e.shiftId).endTime,
+                dummyShifts.firstWhere((s) => s.id == e.id).endTime,
           ))
       .toList();
 
@@ -55,7 +55,7 @@ class _AttendanceListViewScreenState extends State<AttendanceListViewScreen> {
           attendance.entity.facultyId == _selectedFacultyId;
 
       final shiftMatch = _selectedShiftId == null ||
-          attendance.entity.shiftId == _selectedShiftId;
+          attendance.entity.id == _selectedShiftId;
 
       final yearMatch = _selectedYearId == null ||
           attendance.entity.yearId == _selectedYearId;
@@ -91,9 +91,9 @@ class _AttendanceListViewScreenState extends State<AttendanceListViewScreen> {
               FilterConfig(
                 value: _selectedYearId,
                 hint: 'ឆ្នាំទី',
-                items: dummyYears.map((y) => y.yearId).toList(),
+                items: dummyYears.map((y) => y.id).toList(),
                 labelBuilder: (id) =>
-                    dummyYears.firstWhere((y) => y.yearId == id).yearName,
+                    dummyYears.firstWhere((y) => y.id == id).yearName,
                 onChanged: (value) => setState(() => _selectedYearId = value),
               ),
 
@@ -101,9 +101,9 @@ class _AttendanceListViewScreenState extends State<AttendanceListViewScreen> {
               FilterConfig(
                 value: _selectedShiftId,
                 hint: 'វេន',
-                items: dummyShifts.map((s) => s.shiftId).toList(),
+                items: dummyShifts.map((s) => s.id).toList(),
                 labelBuilder: (id) =>
-                    dummyShifts.firstWhere((s) => s.shiftId == id).shiftName,
+                    dummyShifts.firstWhere((s) => s.id == id).shiftName,
                 onChanged: (value) => setState(() => _selectedShiftId = value),
               ),
             ],

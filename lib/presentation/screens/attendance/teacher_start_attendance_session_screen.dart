@@ -139,8 +139,8 @@ class _TeacherStartAttendanceScreenState
               label: 'ឆ្នាំទី',
               value: _yearId,
               items: dummyYears
-                  .map((y) => DropdownMenuItem(
-                      value: y.yearId, child: Text(y.yearName)))
+                  .map((y) =>
+                      DropdownMenuItem(value: y.id, child: Text(y.yearName)))
                   .toList(),
               onChanged: (v) => setState(() => _yearId = v!),
             ),
@@ -148,8 +148,8 @@ class _TeacherStartAttendanceScreenState
               label: 'វេន',
               value: _shiftId,
               items: dummyShifts
-                  .map((s) => DropdownMenuItem(
-                      value: s.shiftId, child: Text(s.shiftName)))
+                  .map((s) =>
+                      DropdownMenuItem(value: s.id, child: Text(s.shiftName)))
                   .toList(),
               onChanged: (v) => setState(() => _shiftId = v!),
             ),

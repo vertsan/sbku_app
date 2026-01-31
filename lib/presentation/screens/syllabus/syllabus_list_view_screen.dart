@@ -49,7 +49,7 @@ class _SyllabusListViewScreenState extends State<SyllabusListViewScreen> {
   };
 
   late final Map<String, ShiftModel> _shiftMap = {
-    for (final s in dummyShifts) s.shiftId: s,
+    for (final s in dummyShifts) s.id: s,
   };
 
   late final Map<String, SemesterModel> _semesterMap = {
@@ -57,7 +57,7 @@ class _SyllabusListViewScreenState extends State<SyllabusListViewScreen> {
   };
 
   late final Map<String, YearModel> _yearMap = {
-    for (final y in dummyYears) y.yearId: y,
+    for (final y in dummyYears) y.id: y,
   };
 
   /// ✅ ENTITY → MODEL (UI mapping with lookups)

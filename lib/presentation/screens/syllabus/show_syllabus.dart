@@ -41,7 +41,7 @@ class ShowSyllabusScreen extends StatelessWidget {
 
     final shiftName = dummyShifts
         .firstWhere(
-          (s) => s.shiftId == syllabus.shiftId,
+          (s) => s.id == syllabus.shiftId,
           orElse: () => dummyShifts.first,
         )
         .shiftName;
@@ -55,7 +55,7 @@ class ShowSyllabusScreen extends StatelessWidget {
 
     final yearName = dummyYears
         .firstWhere(
-          (y) => y.yearId == syllabus.yearId,
+          (y) => y.id == syllabus.yearId,
           orElse: () => dummyYears.first,
         )
         .yearName;

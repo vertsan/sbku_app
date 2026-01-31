@@ -18,9 +18,10 @@ dependencies:
   memory_cache: ^1.2.0
   geolocator: ^10.1.0
   permission_handler: ^11.0.1
-
+  flutter_dotenv: ^5.1.0
   path_provider: ^2.1.1
   shared_preferences: ^2.2.2
+  supabase_flutter: ^2.12.0
 
 dev_dependencies:
   flutter_test:
@@ -31,5 +32,6 @@ flutter:
   uses-material-design: true
 
   assets:
+    - .env.development
     - assets/images/sbku-logo.svg
     - assets/images/campus.png

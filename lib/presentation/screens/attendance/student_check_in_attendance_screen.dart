@@ -221,7 +221,7 @@ class _StudentAttendanceCheckInScreenState
                 _buildInfoRow(
                     'វេន',
                     dummyShifts
-                        .firstWhere((s) => s.shiftId == _nearbySession!.shiftId)
+                        .firstWhere((s) => s.id == _nearbySession!.shiftId)
                         .shiftName),
                 _buildInfoRow('ចម្ងាយ', '${distance.toStringAsFixed(1)}m'),
               ],

@@ -32,10 +32,10 @@ class AttendanceModel {
   factory AttendanceModel.fromEntity(AttendanceEntity entity) {
     final faculty = dummyFaculties.firstWhere((f) => f.id == entity.facultyId);
     final major = dummyMajors.firstWhere((m) => m.majorId == entity.majorId);
-    final shift = dummyShifts.firstWhere((s) => s.shiftId == entity.shiftId);
+    final shift = dummyShifts.firstWhere((s) => s.id == entity.shiftId);
     final classRoom =
         dummyClasses.firstWhere((c) => c.classId == entity.classId);
-    final year = dummyYears.firstWhere((y) => y.yearId == entity.yearId);
+    final year = dummyYears.firstWhere((y) => y.id == entity.yearId);
 
     return AttendanceModel(
       entity: entity,

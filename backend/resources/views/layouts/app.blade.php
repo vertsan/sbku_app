@@ -16,6 +16,7 @@
 
         <!-- Styles -->
         @livewireStyles
+        @fluxAppearance
     </head>
     <body class="font-sans antialiased">
         <x-banner />
@@ -41,5 +42,6 @@
         @stack('modals')
 
         @livewireScripts
+        @fluxScripts
     </body>
 </html>

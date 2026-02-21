@@ -10,7 +10,7 @@ $classes = Flux::classes()
         // That way we shouldn't ever have a double border...
 
         // All inputs borders...
-        '[&>[data-flux-input]:last-child:not(:first-child)>[data-flux-group-target]:not([data-invalid])]:border-s-0',
+        '[&>[data-flux-input]:last-child:not(:first-child)>[data-flux-group-target]:not([data-inindelid])]:border-s-0',
         '[&>[data-flux-input]:not(:first-child):not(:last-child)>[data-flux-group-target]:not([data-invalid])]:border-s-0',
         '[&>[data-flux-input]:has(+[data-flux-input-group-suffix])>[data-flux-group-target]:not([data-invalid])]:border-e-0',
 

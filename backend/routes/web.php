@@ -16,10 +16,9 @@ Route::middleware([
     })->name('dashboard');
 });
 
-Route::get('/test-flux', function () {
-    return view('components.chart-message');
+Route::get('/flux-test', function () {
+    return view('flux-test');
 });
-
 
 
 Route::middleware(['auth', 'verified'])->group(function () {

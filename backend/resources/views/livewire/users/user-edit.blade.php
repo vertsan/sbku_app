@@ -1,7 +1,7 @@
 <div class="fixed inset-0 bg-gray-900/50 backdrop-blur-sm flex items-center justify-center z-50 transition-opacity p-4">
     <div class="bg-white rounded-xl shadow-xl w-full max-w-lg overflow-hidden" @click.outside="$wire.dispatch('closeModal')">
         <div class="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
-            <flux:heading size="lg">Create New User</flux:heading>
+            <flux:heading size="lg">Edit User</flux:heading>
             <flux:button wire:click="$dispatch('closeModal')" variant="ghost" size="sm" icon="x-mark" class="text-gray-400" />
         </div>
 
@@ -21,7 +21,7 @@
             <div class="flex items-center justify-end gap-3 pt-4 mt-6 border-t border-gray-100">
                 <flux:button wire:click="$dispatch('closeModal')" variant="ghost">Cancel</flux:button>
                 <flux:button type="submit" variant="primary">
-                    <span wire:loading.remove wire:target="save">Create User</span>
+                    <span wire:loading.remove wire:target="save">Create</span>
                     <span wire:loading wire:target="save">Saving...</span>
                 </flux:button>
             </div>

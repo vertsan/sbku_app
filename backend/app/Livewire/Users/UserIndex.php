@@ -12,8 +12,12 @@ class UserIndex extends Component
     use WithPagination;
 
     public $search       = '';
+    public $role         = '';
     public $sortBy        = 'id';
     public $sortDirection = 'asc';
+    
+    public $selected      = [];
+    public $selectAll     = false;
 
     public $showCreateModal = false;
     public $showEditModal   = false;
@@ -27,6 +31,16 @@ class UserIndex extends Component
     ];
 
     public function updatingSearch() { $this->resetPage(); }
+    public function updatingRole() { $this->resetPage(); }
+
+    public function updatedSelectAll($value)
+    {
+        if ($value) {
+            $this->selected = $this->users->pluck('id')->map(fn($id) => (string)$id)->toArray();
+        } else {
+            $this->selected = [];
+        }
+    }
 
     public function sort($column)
     {
@@ -43,9 +57,14 @@ class UserIndex extends Component
     public function users()
     {
         return User::query()
-            ->where(function ($q) {
-                $q->where('name', 'like', '%' . $this->search . '%')
-                  ->orWhere('email', 'like', '%' . $this->search . '%');
+            ->when($this->search, function ($q) {
+                $q->where(function($query) {
+                    $query->where('name', 'like', '%' . $this->search . '%')
+                          ->orWhere('email', 'like', '%' . $this->search . '%');
+                });
+            })
+            ->when($this->role, function ($q) {
+                $q->where('role', $this->role);
             })
             ->orderBy($this->sortBy, $this->sortDirection)
             ->paginate(10);
@@ -77,6 +96,26 @@ class UserIndex extends Component
             $this->deleteUserId = null;
             session()->flash('message', 'User deleted successfully.');
             $this->dispatch('modal.close', name: 'confirm-delete');
+        }
+    }
+
+    public function confirmBulkDelete()
+    {
+        if (empty($this->selected)) {
+            return;
+        }
+        $this->dispatch('modal.open', name: 'confirm-bulk-delete');
+    }
+
+    public function deleteSelected()
+    {
+        if (!empty($this->selected)) {
+            User::whereIn('id', $this->selected)->delete();
+            $count = count($this->selected);
+            $this->selected = [];
+            $this->selectAll = false;
+            session()->flash('message', $count . ' users deleted successfully.');
+            $this->dispatch('modal.close', name: 'confirm-bulk-delete');
         }
     }
 

@@ -86,7 +86,7 @@ class UserIndex extends Component
     public function confirmDelete($id)
     {
         $this->deleteUserId = $id;
-        $this->dispatch('modal.open', name: 'confirm-delete');
+        $this->dispatch('modal-show', name: 'confirm-delete');
     }
 
     public function deleteUser()
@@ -95,7 +95,7 @@ class UserIndex extends Component
             User::findOrFail($this->deleteUserId)->delete();
             $this->deleteUserId = null;
             session()->flash('message', 'User deleted successfully.');
-            $this->dispatch('modal.close', name: 'confirm-delete');
+            $this->dispatch('modal-close', name: 'confirm-delete');
         }
     }
 
@@ -104,7 +104,7 @@ class UserIndex extends Component
         if (empty($this->selected)) {
             return;
         }
-        $this->dispatch('modal.open', name: 'confirm-bulk-delete');
+        $this->dispatch('modal-show', name: 'confirm-bulk-delete');
     }
 
     public function deleteSelected()
@@ -115,7 +115,7 @@ class UserIndex extends Component
             $this->selected = [];
             $this->selectAll = false;
             session()->flash('message', $count . ' users deleted successfully.');
-            $this->dispatch('modal.close', name: 'confirm-bulk-delete');
+            $this->dispatch('modal-close', name: 'confirm-bulk-delete');
         }
     }
 

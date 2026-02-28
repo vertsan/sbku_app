@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Livewire\Users;
+namespace App\Livewire\Teachers;
 
-use App\Models\User;
+use App\Models\Teacher;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Livewire\Attributes\Computed;
 
-class UserIndex extends Component
+class TeacherIndex extends Component
 {
     use WithPagination;
 
@@ -15,18 +15,18 @@ class UserIndex extends Component
     public $role         = '';
     public $sortBy        = 'id';
     public $sortDirection = 'asc';
-    
+
     public $selected      = [];
     public $selectAll     = false;
 
     public $showCreateModal = false;
     public $showEditModal   = false;
-    public $editUserId      = null;
-    public $deleteUserId    = null;
+    public $editTeacherId      = null;
+    public $deleteTeacherId    = null;
 
     protected $listeners = [
-        'userCreated' => 'handleUserCreated',
-        'userUpdated' => 'handleUserUpdated',
+        'teacherCreated' => 'handleTeacherCreated',
+        'teacherUpdated' => 'handleTeacherUpdated',
         'closeModal'  => 'closeModals',
     ];
 
@@ -36,7 +36,7 @@ class UserIndex extends Component
     public function updatedSelectAll($value)
     {
         if ($value) {
-            $this->selected = $this->users->pluck('id')->map(fn($id) => (string)$id)->toArray();
+            $this->selected = $this->teachers->pluck('id')->map(fn($id) => (string)$id)->toArray();
         } else {
             $this->selected = [];
         }
@@ -54,9 +54,9 @@ class UserIndex extends Component
     }
 
     #[Computed]
-    public function users()
+    public function teachers()
     {
-        return User::query()
+        return Teacher::query()
             ->when($this->search, function ($q) {
                 $q->where(function($query) {
                     $query->where('name', 'like', '%' . $this->search . '%')
@@ -78,23 +78,23 @@ class UserIndex extends Component
 
     public function openEditModal($id)
     {
-        $this->editUserId      = $id;
+        $this->editTeacherId      = $id;
         $this->showCreateModal = false;
         $this->showEditModal   = true;
     }
 
     public function confirmDelete($id)
     {
-        $this->deleteUserId = $id;
+        $this->deleteTeacherId = $id;
         $this->dispatch('modal-show', name: 'confirm-delete');
     }
 
-    public function deleteUser()
+    public function deleteTeacher()
     {
-        if ($this->deleteUserId) {
-            User::findOrFail($this->deleteUserId)->delete();
-            $this->deleteUserId = null;
-            session()->flash('message', 'User deleted successfully.');
+        if ($this->deleteTeacherId) {
+            Teacher::findOrFail($this->deleteTeacherId)->delete();
+            $this->deleteTeacherId = null;
+            session()->flash('message', 'Teacher deleted successfully.');
             $this->dispatch('modal-close', name: 'confirm-delete');
         }
     }
@@ -110,11 +110,11 @@ class UserIndex extends Component
     public function deleteSelected()
     {
         if (!empty($this->selected)) {
-            User::whereIn('id', $this->selected)->delete();
+            Teacher::whereIn('id', $this->selected)->delete();
             $count = count($this->selected);
             $this->selected = [];
             $this->selectAll = false;
-            session()->flash('message', $count . ' users deleted successfully.');
+            session()->flash('message', $count . ' teachers deleted successfully.');
             $this->dispatch('modal-close', name: 'confirm-bulk-delete');
         }
     }
@@ -123,24 +123,24 @@ class UserIndex extends Component
     {
         $this->showCreateModal = false;
         $this->showEditModal   = false;
-        $this->editUserId      = null;
+        $this->editTeacherId      = null;
     }
 
-    public function handleUserCreated()
+    public function handleTeacherCreated()
     {
         $this->closeModals();
-        session()->flash('message', 'User created successfully.');
+        session()->flash('message', 'Teacher created successfully.');
     }
 
-    public function handleUserUpdated()
+    public function handleTeacherUpdated()
     {
         $this->closeModals();
-        session()->flash('message', 'User updated successfully.');
+        session()->flash('message', 'Teacher updated successfully.');
     }
 
     public function render()
     {
-        return view('livewire.users.user-index')->layout('layouts.app');
+        return view('livewire.teachers.teacher-index')->layout('layouts.app');
     }
-    
+
 }

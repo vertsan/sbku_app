@@ -4,67 +4,121 @@ namespace App\Livewire\Teachers;
 
 use App\Models\User;
 use App\Models\Teacher;
+use App\Models\Major;
+use App\Models\Faculty;
 use Livewire\Component;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class TeacherCreate extends Component
 {
+    /* ---------------------------------
+        User Fields
+    --------------------------------- */
     public $name = '';
     public $email = '';
     public $password = '';
     public $role = 'teacher';
 
+    /* ---------------------------------
+        Teacher Fields
+    --------------------------------- */
     public $gender = '';
-    public $major = '';
+    public $major_id = '';
     public $year = '';
     public $schedule = '';
     public $phone = '';
-    public $faculty = '';
+    public $faculty_id = '';
 
-    protected $rules = [
-        'name'     => 'required|string|max:255',
-        'email'    => 'required|email|unique:users,email',
-        'password' => 'required|min:8',
-        'gender'   => 'required',
-        'major'    => 'required',
-        'year'     => 'required',
-        'schedule' => 'required',
-        'phone'    => 'required',
-        'faculty'  => 'required',
-    ];
+    /* ---------------------------------
+        Validation Rules
+    --------------------------------- */
+    protected function rules()
+    {
+        return [
+            'name'       => 'required|string|max:255',
+            'email'      => 'required|email|max:255|unique:users,email',
+            'password'   => 'required|min:8',
+            'gender'     => 'required|in:male,female',
+            'major_id'   => 'required|exists:majors,id',
+            'year'       => 'required',
+            'schedule'   => 'required|string|max:255',
+            'phone'      => 'required|string|max:20',
+            'faculty_id' => 'required|exists:faculties,id',
+        ];
+    }
 
+    /* ---------------------------------
+        Real-Time Validation (Optional)
+    --------------------------------- */
+    public function updated($property)
+    {
+        $this->validateOnly($property);
+    }
+
+    /* ---------------------------------
+        Save Teacher
+    --------------------------------- */
     public function save()
     {
-        $this->validate();
+        $validated = $this->validate();
 
-        // 1️⃣ Create User
-        $user = User::create([
-            'name'     => $this->name,
-            'email'    => $this->email,
-            'password' => Hash::make($this->password),
-            'role'     => 'teacher',
-        ]);
+        DB::transaction(function () use ($validated) {
 
-        // 2️⃣ Create Teacher
-        Teacher::create([
-            'user_id'   => $user->id,
-            'name' => $this->name,
-            'gender'    => $this->gender,
-            'major'     => $this->major,
-            'year'      => $this->year,
-            'schedule'  => $this->schedule,
-            'phone'     => $this->phone,
-            'faculty'   => $this->faculty,
-        ]);
+            $user = User::create([
+                'name'     => $validated['name'],
+                'email'    => $validated['email'],
+                'password' => Hash::make($validated['password']),
+                'role'     => 'teacher',
+            ]);
+
+            Teacher::create([
+                'user_id'    => $user->id,
+                'name'       => $this->name,
+                'gender'     => $this->gender,
+                'major_id'   => $this->major_id,
+                'year'       => $this->year,
+                'schedule'   => $this->schedule,
+                'phone'      => $this->phone,
+                'faculty_id' => $this->faculty_id,
+            ]);
+        });
 
         $this->reset();
 
-        session()->flash('success', 'Teacher created successfully!');
+         // notify index
+
+session()->flash('success', 'Teacher created successfully!');
     }
 
+    /* ---------------------------------
+        Reset Form Cleanly
+    --------------------------------- */
+    protected function resetForm()
+    {
+        $this->reset([
+            'name',
+            'email',
+            'password',
+            'gender',
+            'major_id',
+            'year',
+            'schedule',
+            'phone',
+            'faculty_id',
+        ]);
+
+        $this->role = 'teacher';
+    }
+
+    /* ---------------------------------
+        Render
+    --------------------------------- */
     public function render()
     {
-        return view('livewire.teachers.teacher-create')
-            ->layout('layouts.app');
+        return view('livewire.teachers.teacher-create', [
+            'majors' => Major::orderBy('name')->get(),
+            'faculties' => Faculty::orderBy('name')->get(),
+        ]);
     }
 }

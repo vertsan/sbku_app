@@ -10,15 +10,24 @@ class Teacher extends Model
     'user_id',
     'name',
     'gender',
-    'major',
+    'major_id',
     'year',
+    'role',
     'schedule',
     'phone',
-    'faculty',
+    'faculty_id',
 ];
 public function user()
 {
     return $this->belongsTo(User::class);
+}
+public function faculty()
+{
+    return $this->belongsTo(Faculty::class);
+}
+public function major()
+{
+    return $this->belongsTo(Major::class);
 }
 }
 

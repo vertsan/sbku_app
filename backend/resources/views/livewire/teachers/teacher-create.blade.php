@@ -30,34 +30,47 @@
                             label="Password"
                             placeholder="Minimum 8 characters" />
 
-                <flux:input wire:model="gender"
-                            label="Gender"
-                            placeholder="e.g. Female" />
+                <flux:select wire:model="gender" size="sm" class="w-32">
+                    <flux:select.option value="">Select</flux:select.option>
+                    <flux:select.option value="male">Male</flux:select.option>
+                    <flux:select.option value="female">Female</flux:select.option>
+                </flux:select>
+
             </div>
 
             {{-- Teacher Info --}}
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <flux:input wire:model="major"
-                            label="Major"
-                            placeholder="Mathematics" />
-
-                <flux:input wire:model="year"
-                            label="Year"
-                            placeholder="2025" />
-
+                <flux:select wire:model="major_id" size="sm" class="w-32">
+                    <flux:select.option value="">Select</flux:select.option>
+                    @foreach ($majors as $major)
+                        <flux:select.option value="{{ $major->id }}">{{ $major->name }}</flux:select.option>
+                    @endforeach
+                </flux:select>
                 <flux:input wire:model="schedule"
                             label="Schedule"
-                            placeholder="Mon, Wed, Fri" />
+                            placeholder="e.g. MWF 9:00–11:00" />
+                
+                <flux:select wire:model="year" size="sm" class="w-32">
+                    <flux:select.option value="">Select</flux:select.option>
+                    <flux:select.option value="1">1</flux:select.option>
+                    <flux:select.option value="2">2</flux:select.option>
+                    <flux:select.option value="3">3</flux:select.option>
+                    <flux:select.option value="4">4</flux:select.option>
+                </flux:select>
 
                 <flux:input wire:model="phone"
                             label="Phone"
                             placeholder="123-456-7890" />
 
-                <flux:input wire:model="faculty"
-                            label="Faculty"
-                            placeholder="Faculty of Science" />
+               <flux:select wire:model="faculty_id" size="sm" class="w-32">
+                <flux:select.option value="">Select</flux:select.option>
+                @foreach ($faculties as $faculty)
+                    <flux:select.option value="{{ $faculty->id }}">{{ $faculty->name }}</flux:select.option>
+                @endforeach
+               </flux:select>
             </div>
 
+        
             {{-- Actions --}}
             <div class="flex justify-end gap-3 pt-4 border-t border-gray-100">
                 <flux:button wire:click="$dispatch('closeModal')" variant="ghost">

@@ -26,23 +26,14 @@
                             size="sm"
                             class="w-52"
                         />
-
-                        <flux:select wire:model.live="role" size="sm" class="w-32">
-                            <flux:select.option value="">All Roles</flux:select.option>
-                            <flux:select.option value="admin">Admin</flux:select.option>
-                            <flux:select.option value="user">User</flux:select.option>
-                            <flux:select.option value="student">Student</flux:select.option>
-                            <flux:select.option value="teacher">Teacher</flux:select.option>
-                        </flux:select>
-
                         @if(count($selected) > 0)
-                            <flux:button wire:click="confirmBulkDelete"  size="sm" >
+                            <flux:button wire:click="confirmBulkDelete" size="sm" variant="danger" icon="trash">
                                 Delete ({{ count($selected) }})
                             </flux:button>
                         @endif
                     </div>
 
-                    <flux:button wire:click="openCreateModal"  size="sm">
+                    <flux:button wire:click="openCreateModal" size="sm" variant="primary" icon="plus">
                         Add Teacher
                     </flux:button>
                 </div>
@@ -51,13 +42,17 @@
                 <flux:table :paginate="$this->teachers">
                     <table class="w-full text-sm text-left">
                         <colgroup>
-                            <col class="w-10">
-                            <col class="w-12">
-                            <col class="w-56">
-                            <col>
-                            <col class="w-24">
-                            <col class="w-32">
-                            <col class="w-36">
+                            <col class="w-10">    {{-- checkbox --}}
+                            <col class="w-12">    {{-- # --}}
+                            <col class="w-52">    {{-- name --}}
+                            <col>                 {{-- email --}}
+                            <col class="w-28">    {{-- major --}}
+                            <col class="w-28">    {{-- faculty --}}
+                            <col class="w-16">    {{-- year --}}
+                            <col class="w-36">    {{-- schedule --}}
+                            <col class="w-28">    {{-- phone --}}
+                            <col class="w-28">    {{-- joined --}}
+                            <col class="w-32">    {{-- actions --}}
                         </colgroup>
                         <thead>
                             <tr class="border-b border-zinc-200 bg-zinc-50">
@@ -67,7 +62,12 @@
                                 <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide text-zinc-400 cursor-pointer hover:text-zinc-600 select-none" wire:click="sort('id')">#</th>
                                 <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide text-zinc-400 cursor-pointer hover:text-zinc-600 select-none" wire:click="sort('name')">Name</th>
                                 <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide text-zinc-400 cursor-pointer hover:text-zinc-600 select-none" wire:click="sort('email')">Email</th>
-                                <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide text-zinc-400 cursor-pointer hover:text-zinc-600 select-none" wire:click="sort('role')">Role</th>
+                                <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide text-zinc-400 cursor-pointer hover:text-zinc-600 select-none" wire:click="sort('major_id')">Major</th>
+                                <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide text-zinc-400 cursor-pointer hover:text-zinc-600 select-none" wire:click="sort('faculty_id')">Faculty</th>
+                                <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide text-zinc-400 cursor-pointer hover:text-zinc-600 select-none" wire:click="sort('year')">Year</th>
+                                <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide text-zinc-400 cursor-pointer hover:text-zinc-600 select-none" wire:click="sort('schedule')">Schedule</th>
+                                <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide text-zinc-400 cursor-pointer hover:text-zinc-600 select-none" wire:click="sort('phone')">Phone</th>
+                                <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide text-zinc-400 cursor-pointer hover:text-zinc-600 select-none" wire:click="sort('email')">Role</th>
                                 <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide text-zinc-400 cursor-pointer hover:text-zinc-600 select-none" wire:click="sort('created_at')">Joined</th>
                                 <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide text-zinc-400">Actions</th>
                             </tr>
@@ -76,14 +76,17 @@
                             @forelse ($this->teachers as $teacher)
                                 <tr class="hover:bg-zinc-50/70 transition-colors duration-100">
 
+                                    {{-- Checkbox --}}
                                     <td class="px-4 py-3">
                                         <flux:checkbox wire:model.live="selected" value="{{ $teacher->id }}" />
                                     </td>
 
+                                    {{-- ID --}}
                                     <td class="px-4 py-3 tabular-nums text-xs text-zinc-400">
                                         {{ $teacher->id }}
                                     </td>
 
+                                    {{-- Name --}}
                                     <td class="px-4 py-3">
                                         <div class="flex items-center gap-2.5">
                                             <img
@@ -95,37 +98,60 @@
                                         </div>
                                     </td>
 
+                                   
+
+                                    {{-- Email --}}
                                     <td class="px-4 py-3 text-sm text-zinc-500">
-                                        {{ $teacher->email }}
+                                        {{ $teacher->user->email ?? '—' }}
                                     </td>
 
-                                    <td class="px-4 py-3">
-                                        @if(($teacher->role ?? 'user') === 'admin')
-                                            <flux:badge color="red" size="sm">Admin</flux:badge>
-                                        @elseif(($teacher->role ?? 'user') === 'teacher')
-                                            <flux:badge color="green" size="sm">Teacher</flux:badge>
-                                        @elseif(($teacher->role ?? 'user') === 'student')
-                                            <flux:badge color="yellow" size="sm">Student</flux:badge>
-                                        @else
-                                            <flux:badge color="blue" size="sm">User</flux:badge>
-                                        @endif
+                                    {{-- Major --}}
+                                    <td class="px-4 py-3 text-sm text-zinc-500">
+                                        {{ $teacher->major->name ?? '—' }}
                                     </td>
 
+                                    {{-- Faculty --}}
+                                    <td class="px-4 py-3 text-sm text-zinc-500">
+                                        {{ $teacher->faculty->name ?? '—' }}
+                                    </td>
+
+                                    {{-- Year --}}
+                                    <td class="px-4 py-3 text-sm text-zinc-500">
+                                        {{ $teacher->year ?? '—' }}
+                                    </td>
+
+                                    {{-- Schedule --}}
+                                    <td class="px-4 py-3 text-sm text-zinc-500">
+                                        {{ $teacher->schedule ?? '—' }}
+                                    </td>
+
+                                    {{-- Phone --}}
+                                    <td class="px-4 py-3 text-sm text-zinc-500">
+                                        {{ $teacher->phone ?? '—' }}
+                                    </td>
+
+                                    {{-- Role --}}
+                                    <td class="px-4 py-3 text-sm text-zinc-500">
+                                        {{ $teacher->user->role ?? '—' }}
+                                    </td>
+
+                                    {{-- Joined --}}
                                     <td class="px-4 py-3 text-sm text-zinc-400">
                                         {{ $teacher->created_at?->format('M j, Y') ?? '—' }}
                                     </td>
 
+                                    {{-- Actions --}}
                                     <td class="px-4 py-3">
                                         <div class="flex items-center gap-1.5">
-                                            <flux:button wire:click="openEditModal({{ $teacher->id }})" size="sm" variant="ghost" >Edit</flux:button>
-                                            <flux:button wire:click="confirmDelete({{ $teacher->id }})" size="sm" variant="danger" >Delete</flux:button>
+                                            <flux:button wire:click="openEditModal({{ $teacher->id }})" size="sm" variant="ghost">Edit</flux:button>
+                                            <flux:button wire:click="confirmDelete({{ $teacher->id }})" size="sm" variant="danger">Delete</flux:button>
                                         </div>
                                     </td>
 
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="7" class="px-4 py-14 text-center">
+                                    <td colspan="11" class="px-4 py-14 text-center">
                                         <div class="flex flex-col items-center gap-1.5 text-zinc-400">
                                             <flux:icon name="users" class="w-6 h-6 mb-0.5" />
                                             <p class="text-sm font-medium text-zinc-500">No teachers found</p>
@@ -164,11 +190,7 @@
                 <flux:modal.close>
                     <flux:button variant="ghost">Cancel</flux:button>
                 </flux:modal.close>
-               <flux:button
-                    wire:click="deleteUser"
-                    size="sm"
-                    variant="danger"
-                >Delete</flux:button>
+                <flux:button wire:click="deleteTeacher" size="sm" variant="danger">Delete</flux:button>
             </div>
         </flux:modal>
 
@@ -188,4 +210,3 @@
     </div>
 
 </div>
-
